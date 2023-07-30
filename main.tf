@@ -102,9 +102,14 @@ resource "aws_default_route_table" "mtc_private_rt" {
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet
 # https://developer.hashicorp.com/terraform/language/meta-arguments/count
 resource "aws_subnet" "mtc_public_subnet" {
-  count =2
+  #count =2
   # this is part of the count meta-argument so that we can add multiple subnets
   # 2 subnets, one for each availability_zone
+  # It is better to use the length function on the variables.tf var.public_cidrs variable so that this relationship 
+  # is automatically provisioned as the number of cidrs in variables.tf increases or decreases.  The subnets
+  # should always be provisioned in accordance with the number of cidr_blocks in the most general scenario....
+  # https://developer.hashicorp.com/terraform/language/functions/length
+  count = length(var.public_cidrs)
   
   vpc_id = aws_vpc.mtc_vpc.id
   
