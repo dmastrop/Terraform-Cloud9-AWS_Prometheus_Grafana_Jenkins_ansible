@@ -1,3 +1,17 @@
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones
+# can optionally apply filters
+data "aws_availability_zones" "available" {}
+
+
+
+# https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id
+# use interpolation to concatenate this random_id to the tags used below
+# note that random is a different provider from aws and will need to add this to the proivders.tf file.
+resource "random_id" "random" {
+  byte_length = 2
+}
+
+
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc
 resource "aws_vpc" "mtc_vpc" {
   # the mtc_vpc is not for aws, only for terraform
@@ -9,10 +23,29 @@ resource "aws_vpc" "mtc_vpc" {
   enable_dns_support   = true
 
   tags = {
-    Name = "mtc_vpc"
+    #Name = "mtc_vpc"
+    Name = "mtc_vpc-${random_id.random.dec}"
+    # use the .dec:: "dec (String) The generated id presented in non-padded decimal digits.""
     # aws will be aware of these tags
   }
+  
+  lifecycle {
+    create_before_destroy = true
+    # https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle
+    # this will create a new vpc (if required; for example default in variables.tf changed)
+    # BEFORE destroying the old one
+    # this will allow the igw to gracefully detach (igw will not be destroyed)
+    # from the old vpc and re-attach to the new vpc
+    # then the old vpc can be destroyed after this process is complete.
+    # without this terraform will not allow the old vpc to be first destroyed because the igw would have no where
+    # to re-attach without the new vpc being created. Thus it is imperative that the new vpc be created BEFORE 
+    # destroying the old vpc so that the igw is not "orphaned";
+    # otherwise the apply will hang and terraform will crash....
+    # the PROPER order is first create the new vpc (this lifecycle), then re-attach the existing igw to this new VPC
+    # then destroy the old VPC.
+  }
 }
+
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/internet_gateway
 resource "aws_internet_gateway" "mtc_internet_gateway" {
@@ -25,6 +58,41 @@ resource "aws_internet_gateway" "mtc_internet_gateway" {
   # because we can read it from the state (above)
   
   tags = {
-    Name = "mtc_igw"
+    #Name = "mtc_igw"
+    Name = "mtc_igw-${random_id.random.dec}"
+    # see notes above for vpc tag regarding this interpoloation with random.id
+  }
+}
+
+# aws_route is seprate resource which we will use here
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route
+# aws_route_table is for inline and not used here
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table
+# the aws_route_table will just have the vpc. The routes will be separately defined in the 
+# aws_route resource (not inline in aws_route table)
+resource "aws_route_table" "mtc_public_rt" {
+  vpc_id = aws_vpc.mtc_vpc.id
+  
+  tags = {
+    Name = "mtc-public"
+  }
+}
+
+resource "aws_route" "default_route" {
+  route_table_id = aws_route_table.mtc_public_rt.id
+  # this is the route table id of the above
+  destination_cidr_block = "0.0.0.0/0"
+  # this will forward all traffic for outside world out the igw
+  gateway_id = aws_internet_gateway.mtc_internet_gateway.id
+  # this is the igw defined above.
+}
+
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/default_route_table
+resource "aws_default_route_table" "mtc_private_rt" {
+  default_route_table_id = aws_vpc.mtc_vpc.default_route_table_id
+  
+  tags = {
+    Name = "mtc_private"
   }
 }
