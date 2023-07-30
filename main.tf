@@ -96,3 +96,19 @@ resource "aws_default_route_table" "mtc_private_rt" {
     Name = "mtc_private"
   }
 }
+
+
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet
+resource "aws_subnet" "mtc_public_subnet" {
+  vpc_id = aws_vpc.mtc_vpc.id
+  cidr_block = var.public_cidrs
+  # this variable needs to be defined in variables.tf
+  map_public_ip_on_launch = true
+  # Specify true to indicate that instances launched into the subnet should be assigned a public IP address. 
+  availability_zone = data.aws_availability_zones.available.names[0]
+  # terraform console, we tested this out
+  
+  tags = {
+    Name = "mtc-public"
+  }
+}  
