@@ -1,3 +1,9 @@
+locals {
+  azs = data.aws_availability_zones.available.names
+}
+# this is the locals definition for the availability_zones in the private and public subnet resources defined below
+# https://developer.hashicorp.com/terraform/language/values/locals
+
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones
 # can optionally apply filters
 data "aws_availability_zones" "available" {}
@@ -123,10 +129,15 @@ resource "aws_subnet" "mtc_public_subnet" {
   # Specify true to indicate that instances launched into the subnet should be assigned a public IP address. 
   
   #availability_zone = data.aws_availability_zones.available.names[0]
-  availability_zone = data.aws_availability_zones.available.names[count.index]
+  ## availability_zone = data.aws_availability_zones.available.names[count.index]
   # terraform console, we tested this out. There are currently 2 of them available in us-west-1
   # add [count.index] here as well so that we can assign the successive availability_zone to the successive
   # subnet that is being created.
+  # Next comment out the above availability_zone definition and use locals to simplify it.
+  # https://developer.hashicorp.com/terraform/language/values/locals
+  # do the same in private subnet below
+  availability_zone = local.azs[count.index]
+  
 
 # This is the original subnet resource (just a single subnet)  
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet
@@ -185,10 +196,14 @@ resource "aws_subnet" "mtc_private_subnet" {
   # this is not required on the private subnet. We do not want the instances to have public IP addresses
   
   #availability_zone = data.aws_availability_zones.available.names[0]
-  availability_zone = data.aws_availability_zones.available.names[count.index]
+  ## availability_zone = data.aws_availability_zones.available.names[count.index]
   # terraform console, we tested this out. There are currently 2 of them available in us-west-1
   # add [count.index] here as well so that we can assign the successive availability_zone to the successive
   # subnet that is being created.
+  # Next comment out the above availability_zone definition and use locals to simplify it.
+  # https://developer.hashicorp.com/terraform/language/values/locals
+  # do the same in public subnet above
+  availability_zone = local.azs[count.index]
 
 # modify the subnet tag so that it corresponds to the count.index +1 (count.index starts at 0 so the tag will
 # start at 1). Use the following interpoloation syntax.
