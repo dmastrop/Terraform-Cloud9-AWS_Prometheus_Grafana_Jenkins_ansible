@@ -160,3 +160,39 @@ resource "aws_subnet" "mtc_public_subnet" {
     Name = "mtc-public-${count.index + 1}"
   }
 }  
+
+# private subnets (DIY)
+resource "aws_subnet" "mtc_private_subnet" {
+  #count =2
+  # this is part of the count meta-argument so that we can add multiple subnets
+  # 2 subnets, one for each availability_zone
+  # It is better to use the length function on the variables.tf var.public_cidrs variable so that this relationship 
+  # is automatically provisioned as the number of cidrs in variables.tf increases or decreases.  The subnets
+  # should always be provisioned in accordance with the number of cidr_blocks in the most general scenario....
+  # https://developer.hashicorp.com/terraform/language/functions/length
+  count = length(var.private_cidrs)
+  
+  vpc_id = aws_vpc.mtc_vpc.id
+  
+  cidr_block = var.private_cidrs[count.index]
+  # this variable needs to be defined in variables.tf
+  # reference the multiple cidr_blocks that we have now with the [count.index]
+  # the first subnet that is created will have index of 0 and the second subnet will have an index of 1
+  # these will index into the cidr_blocks in variables.tf accordingly.
+  
+  map_public_ip_on_launch = false
+  # Specify true to indicate that instances launched into the subnet should be assigned a public IP address. 
+  # this is not required on the private subnet. We do not want the instances to have public IP addresses
+  
+  #availability_zone = data.aws_availability_zones.available.names[0]
+  availability_zone = data.aws_availability_zones.available.names[count.index]
+  # terraform console, we tested this out. There are currently 2 of them available in us-west-1
+  # add [count.index] here as well so that we can assign the successive availability_zone to the successive
+  # subnet that is being created.
+
+# modify the subnet tag so that it corresponds to the count.index +1 (count.index starts at 0 so the tag will
+# start at 1). Use the following interpoloation syntax.
+  tags = {
+    Name = "mtc-private-${count.index + 1}"
+  }
+}  

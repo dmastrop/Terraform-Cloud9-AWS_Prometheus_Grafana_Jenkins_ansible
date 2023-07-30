@@ -18,3 +18,9 @@ variable public_cidrs {
     type = list(string)
     default = ["10.124.1.0/24", "10.124.3.0/24"]
 }
+
+# private cidr blocks
+variable private_cidrs {
+    type = list(string)
+    default = ["10.124.11.0/24", "10.124.13.0/24"]
+}
