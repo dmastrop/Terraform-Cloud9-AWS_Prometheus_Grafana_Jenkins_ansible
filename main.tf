@@ -97,18 +97,61 @@ resource "aws_default_route_table" "mtc_private_rt" {
   }
 }
 
-
+# This is the multiple count subnet resource definition. Note that another cidr_block has been added in 
+# variables.tf file.
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet
+# https://developer.hashicorp.com/terraform/language/meta-arguments/count
 resource "aws_subnet" "mtc_public_subnet" {
+  count =2
+  # this is part of the count meta-argument so that we can add multiple subnets
+  # 2 subnets, one for each availability_zone
+  
   vpc_id = aws_vpc.mtc_vpc.id
-  cidr_block = var.public_cidrs
+  
+  cidr_block = var.public_cidrs[count.index]
   # this variable needs to be defined in variables.tf
+  # reference the multiple cidr_blocks that we have now with the [count.index]
+  # the first subnet that is created will have index of 0 and the second subnet will have an index of 1
+  # these will index into the cidr_blocks in variables.tf accordingly.
+  
   map_public_ip_on_launch = true
   # Specify true to indicate that instances launched into the subnet should be assigned a public IP address. 
-  availability_zone = data.aws_availability_zones.available.names[0]
+  
+  #availability_zone = data.aws_availability_zones.available.names[0]
+  availability_zone = data.aws_availability_zones.available.names[count.index]
+  # terraform console, we tested this out. There are currently 2 of them available in us-west-1
+  # add [count.index] here as well so that we can assign the successive availability_zone to the successive
+  # subnet that is being created.
+
+# This is the original subnet resource (just a single subnet)  
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet
+#resource "aws_subnet" "mtc_public_subnet" {
+#  vpc_id = aws_vpc.mtc_vpc.id
+#  cidr_block = var.public_cidrs
+  # this variable needs to be defined in variables.tf
+#  map_public_ip_on_launch = true
+  # Specify true to indicate that instances launched into the subnet should be assigned a public IP address. 
+#  availability_zone = data.aws_availability_zones.available.names[0]
+  # terraform console, we tested this out. There are currently 2 of them available in us-west-1
+
+# for multiple subnets it is inefficient to add more resourcce blocks (below)
+# it is better to use the count meta-argument as shown above
+#resource "aws_subnet" "mtc_public_subnet2" {
+#  vpc_id = aws_vpc.mtc_vpc.id
+#  cidr_block = var.public_cidrs
+  # this variable needs to be defined in variables.tf
+#  map_public_ip_on_launch = true
+  # Specify true to indicate that instances launched into the subnet should be assigned a public IP address. 
+#  availability_zone = data.aws_availability_zones.available.names[0]
   # terraform console, we tested this out
   
+#  tags = {
+#    Name = "mtc-public"
+#  }
+
+# modify the subnet tag so that it corresponds to the count.index +1 (count.index starts at 0 so the tag will
+# start at 1). Use the following interpoloation syntax.
   tags = {
-    Name = "mtc-public"
+    Name = "mtc-public-${count.index + 1}"
   }
 }  
