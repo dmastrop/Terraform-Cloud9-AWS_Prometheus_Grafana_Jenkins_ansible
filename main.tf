@@ -245,6 +245,7 @@ resource "aws_subnet" "mtc_private_subnet" {
 }  
 
 
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table_association
 resource "aws_route_table_association" "mtc_public_assoc" {
   count = length(local.azs) 
   # the syntax below can be verified using terraform console, for example
