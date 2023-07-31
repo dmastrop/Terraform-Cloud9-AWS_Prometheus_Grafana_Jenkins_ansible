@@ -4,6 +4,8 @@ locals {
 # this is the locals definition for the availability_zones in the private and public subnet resources defined below
 # https://developer.hashicorp.com/terraform/language/values/locals
 
+
+
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones
 # can optionally apply filters
 data "aws_availability_zones" "available" {}
@@ -12,10 +14,12 @@ data "aws_availability_zones" "available" {}
 
 # https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id
 # use interpolation to concatenate this random_id to the tags used below
-# note that random is a different provider from aws and will need to add this to the proivders.tf file.
+# note that random is a different provider from aws and will need to add this executable will be added
+# to the .terraform folder when we run terraform init for it.
 resource "random_id" "random" {
   byte_length = 2
 }
+
 
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc
@@ -53,6 +57,7 @@ resource "aws_vpc" "mtc_vpc" {
 }
 
 
+
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/internet_gateway
 resource "aws_internet_gateway" "mtc_internet_gateway" {
   vpc_id = aws_vpc.mtc_vpc.id
@@ -70,6 +75,8 @@ resource "aws_internet_gateway" "mtc_internet_gateway" {
   }
 }
 
+
+
 # aws_route is seprate resource which we will use here
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route
 # aws_route_table is for inline and not used here
@@ -84,6 +91,8 @@ resource "aws_route_table" "mtc_public_rt" {
   }
 }
 
+
+
 resource "aws_route" "default_route" {
   route_table_id = aws_route_table.mtc_public_rt.id
   # this is the route table id of the above
@@ -92,6 +101,8 @@ resource "aws_route" "default_route" {
   gateway_id = aws_internet_gateway.mtc_internet_gateway.id
   # this is the igw defined above.
 }
+
+
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/default_route_table
@@ -245,6 +256,7 @@ resource "aws_subnet" "mtc_private_subnet" {
 }  
 
 
+
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table_association
 resource "aws_route_table_association" "mtc_public_assoc" {
   count = length(local.azs) 
@@ -260,3 +272,42 @@ resource "aws_route_table_association" "mtc_public_assoc" {
 }
 # NOTE: all private subnets will default to using the default_route_table specified above
 # So no aws_route_table_association needs to be done for private subnets
+
+
+
+resource "aws_security_group" "mtc_sg" {
+  name = "public_sg"
+  description = "Security gorup for public instances"
+  vpc_id = aws_vpc.mtc_vpc.id
+}
+
+
+
+resource "aws_security_group_rule" "ingress_all" {
+  type = "ingress"
+  from_port = 0
+  to_port = 65535
+  protocol = "-1"
+  # this means all protocols: icmp, tcp, udp, etc.....
+  cidr_blocks = [var.access_ip]
+  # note that cidr_blocks is a list so need the []
+  # the access_ip will be my PC address. I am using an
+  # expanded CIDR block of 98.234.0.0/16
+  security_group_id = aws_security_group.mtc_sg.id
+}
+
+
+
+resource "aws_security_group_rule" "egress_all" {
+  type = "egress"
+  from_port = 0
+  to_port = 65535
+  protocol = "-1"
+  # this means all protocols: icmp, tcp, udp, etc.....
+  cidr_blocks = ["0.0.0.0/0"]
+  # note that cidr_blocks is a list so need the []
+  # 0.0.0.0/0 is for all destination addresses outbound. 
+  security_group_id = aws_security_group.mtc_sg.id
+}
+
+
