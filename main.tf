@@ -192,6 +192,8 @@ resource "aws_subnet" "mtc_public_subnet" {
 
 
 # private subnets (DIY)
+# NOTE: all private subnets will default to using the default_route_table specified above
+# So no aws_route_table_association needs to be done for private subnets
 resource "aws_subnet" "mtc_private_subnet" {
   #count =2
   # this is part of the count meta-argument so that we can add multiple subnets
@@ -245,8 +247,15 @@ resource "aws_subnet" "mtc_private_subnet" {
 
 resource "aws_route_table_association" "mtc_public_assoc" {
   count = length(local.azs) 
+  # the syntax below can be verified using terraform console, for example
+  # > aws_subnet.mtc_public_subnet[0].id
+  # "subnet-0bcc23363d47f4d76"
   # splat syntax follows; note in this simple case count.index is 0 and 1:
   ##subnet_id = aws_subnet.mtc_public_subnet.*.id[count.index]
+  
   # the above splat syntax accomplishes the same thing as this below:
   subnet_id = aws_subnet.mtc_public_subnet[count.index].id
+  route_table_id = aws_route_table.mtc_public_rt.id
 }
+# NOTE: all private subnets will default to using the default_route_table specified above
+# So no aws_route_table_association needs to be done for private subnets
