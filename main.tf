@@ -115,15 +115,26 @@ resource "aws_subnet" "mtc_public_subnet" {
   # is automatically provisioned as the number of cidrs in variables.tf increases or decreases.  The subnets
   # should always be provisioned in accordance with the number of cidr_blocks in the most general scenario....
   # https://developer.hashicorp.com/terraform/language/functions/length
-  count = length(var.public_cidrs)
+  ## count = length(var.public_cidrs)
+  
+  # we will not be using the var.public_cidrs any longer with the new definitions below so change count definition
+  # NOTE: This assumes we have one subnet per availability_zone
+  count = length(local.azs)
   
   vpc_id = aws_vpc.mtc_vpc.id
   
-  cidr_block = var.public_cidrs[count.index]
+  ## cidr_block = var.public_cidrs[count.index]
   # this variable needs to be defined in variables.tf
   # reference the multiple cidr_blocks that we have now with the [count.index]
   # the first subnet that is created will have index of 0 and the second subnet will have an index of 1
   # these will index into the cidr_blocks in variables.tf accordingly.
+  
+  # redefine cidr_block with indexing. For pubic use the count.index
+  # for example, with 2 cidr_blocks, index 0 and 1. For 3 cidr_blocks, index 0,1,2
+  # for private subnet use length(local.azs) + count.index
+  # so for 2 cidr blocks, 2 and 3. For 3 cidr_blocks, 3,4,5
+  # NOTE: there is no overlap of private and public subnets
+  cidr_block = cidrsubnet(var.vpc_cidr, 8, count.index)
   
   map_public_ip_on_launch = true
   # Specify true to indicate that instances launched into the subnet should be assigned a public IP address. 
@@ -137,7 +148,13 @@ resource "aws_subnet" "mtc_public_subnet" {
   # https://developer.hashicorp.com/terraform/language/values/locals
   # do the same in private subnet below
   availability_zone = local.azs[count.index]
-  
+
+# modify the subnet tag so that it corresponds to the count.index +1 (count.index starts at 0 so the tag will
+# start at 1). Use the following interpoloation syntax.
+  tags = {
+    Name = "mtc-public-${count.index + 1}"
+  }
+}
 
 # This is the original subnet resource (just a single subnet)  
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet
@@ -165,12 +182,10 @@ resource "aws_subnet" "mtc_public_subnet" {
 #    Name = "mtc-public"
 #  }
 
-# modify the subnet tag so that it corresponds to the count.index +1 (count.index starts at 0 so the tag will
-# start at 1). Use the following interpoloation syntax.
-  tags = {
-    Name = "mtc-public-${count.index + 1}"
-  }
-}  
+
+
+
+
 
 # private subnets (DIY)
 resource "aws_subnet" "mtc_private_subnet" {
@@ -181,15 +196,26 @@ resource "aws_subnet" "mtc_private_subnet" {
   # is automatically provisioned as the number of cidrs in variables.tf increases or decreases.  The subnets
   # should always be provisioned in accordance with the number of cidr_blocks in the most general scenario....
   # https://developer.hashicorp.com/terraform/language/functions/length
-  count = length(var.private_cidrs)
+  ## count = length(var.private_cidrs)
+  
+  # we will not be using the var.public_cidrs any longer with the new definitions below so change count definition
+  # NOTE: This assumes we have one subnet per availability_zone
+  count = length(local.azs)
   
   vpc_id = aws_vpc.mtc_vpc.id
   
-  cidr_block = var.private_cidrs[count.index]
+  ## cidr_block = var.private_cidrs[count.index]
   # this variable needs to be defined in variables.tf
   # reference the multiple cidr_blocks that we have now with the [count.index]
   # the first subnet that is created will have index of 0 and the second subnet will have an index of 1
   # these will index into the cidr_blocks in variables.tf accordingly.
+  
+  # redefine cidr_block with indexing. For pubic use the count.index
+  # for example, with 2 cidr_blocks, index 0 and 1. For 3 cidr_blocks, index 0,1,2
+  # for private subnet use length(local.azs) + count.index
+  # so for 2 cidr blocks, 2 and 3. For 3 cidr_blocks, 3,4,5
+  # NOTE: there is no overlap of private and public subnets
+  cidr_block = cidrsubnet(var.vpc_cidr, 8, length(local.azs) + count.index)
   
   map_public_ip_on_launch = false
   # Specify true to indicate that instances launched into the subnet should be assigned a public IP address. 

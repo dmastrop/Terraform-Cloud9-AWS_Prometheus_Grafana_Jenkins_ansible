@@ -24,3 +24,6 @@ variable private_cidrs {
     type = list(string)
     default = ["10.124.11.0/24", "10.124.13.0/24"]
 }
+
+# NOTE: we will not be using thsee private_cidrs and public_cidrs any longer
+# we will use the cidrsubnet function. See main.tf file.
