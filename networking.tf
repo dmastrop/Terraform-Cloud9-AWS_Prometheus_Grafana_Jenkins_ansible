@@ -275,6 +275,7 @@ resource "aws_route_table_association" "mtc_public_assoc" {
 
 
 
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group
 resource "aws_security_group" "mtc_sg" {
   name = "public_sg"
   description = "Security gorup for public instances"
@@ -283,6 +284,7 @@ resource "aws_security_group" "mtc_sg" {
 
 
 
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule
 resource "aws_security_group_rule" "ingress_all" {
   type = "ingress"
   from_port = 0
