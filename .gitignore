@@ -1,4 +1,4 @@
 terraform
 .terraform
 #.terraform.*
-test2_git_ignored
+test2_git_ignore
