@@ -75,6 +75,15 @@ variable main_vol_size {
 # since we can have multiple EC2 instances in each subnet we need a different type of number and this is it:
 variable main_instance_count {
     type = number
-    default = 3
+    default = 2
 }
 
+
+
+variable key_name {
+    type = string
+}
+
+variable public_key_path {
+    type = string
+}

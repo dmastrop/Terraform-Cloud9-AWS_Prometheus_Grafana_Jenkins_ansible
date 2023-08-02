@@ -63,6 +63,16 @@ resource "random_id" "mtc_compute_node_id" {
   byte_length = 2
   count = var.main_instance_count
 }
+
+
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair
+# this resource will be used in the aws_instance resource below
+resource "aws_key_pair" "mtc_auth" {
+    key_name = var.key_name
+    public_key = file(var.public_key_path)
+}
+
+
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance
  resource "aws_instance" "mtc_main" {
      count = var.main_instance_count
@@ -70,7 +80,9 @@ resource "random_id" "mtc_compute_node_id" {
      instance_type = var.main_instance_type
      # see the variables.tf file
      ami = data.aws_ami.server_ami.id
-     # key_name = ""
+     key_name = aws_key_pair.mtc_auth.id
+     # this aws_key_pair is defined above. .id is the key pair name. You can also use .key_name as well
+     # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair
      vpc_security_group_ids = [aws_security_group.mtc_sg.id]
      # this is from the networking.tf file
      #subnet_id = aws_subnet.mtc_public_subnet[0].id
