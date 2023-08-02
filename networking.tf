@@ -16,6 +16,8 @@ data "aws_availability_zones" "available" {}
 # use interpolation to concatenate this random_id to the tags used below
 # note that random is a different provider from aws and will need to add this executable will be added
 # to the .terraform folder when we run terraform init for it.
+# random produces a random byte_length number that can be used througout the script
+# the name should make it unique for its intended use.
 resource "random_id" "random" {
   byte_length = 2
 }

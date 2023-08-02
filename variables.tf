@@ -68,3 +68,13 @@ variable main_vol_size {
     # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance
 }
 
+
+
+# using this varaible for the count on EC2 instances implementation
+# we need this because count = length(local.azs) is only good for number of subnets (1 per availability zone)
+# since we can have multiple EC2 instances in each subnet we need a different type of number and this is it:
+variable main_instance_count {
+    type = number
+    default = 3
+}
+
