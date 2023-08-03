@@ -74,7 +74,7 @@ resource "aws_key_pair" "mtc_auth" {
 
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance
- resource "aws_instance" "mtc_main" {
+resource "aws_instance" "mtc_main" {
      count = var.main_instance_count
      # note that this "count" definition is local to this resource only
      instance_type = var.main_instance_type
@@ -88,6 +88,8 @@ resource "aws_key_pair" "mtc_auth" {
      #subnet_id = aws_subnet.mtc_public_subnet[0].id
      # for now use the first instance index 0 but later we will put in a count
      subnet_id = aws_subnet.mtc_public_subnet[count.index].id
+     user_data = templatefile("./main-userdata.tpl", {new_hostname = "mtc_main-${random_id.mtc_compute_node_id[count.index].dec}"})
+     # template file https://developer.hashicorp.com/terraform/language/functions/templatefile
      root_block_device {
          volume_size = var.main_vol_size
          # this is a variable in variables.tf
@@ -102,5 +104,26 @@ resource "aws_key_pair" "mtc_auth" {
          # if count=4 (var.main_instance_count) then index is 0,1,2,3 and these map to subnet 0, subnet 1, subnet 2, and subnet 3.  
          # Since we do not have subnet 2 and 3 this will fail. So the subnetting should be based upon the local(azs) since we have 
          # 1 subnet for each availability zone.
+     }
+     
+     
+     
+     # https://developer.hashicorp.com/terraform/language/resources/provisioners/syntax
+     # https://developer.hashicorp.com/terraform/language/resources/provisioners/local-exec
+     # this provisioner is executed locally whenever a new aws_instance is created.  the command will be run.
+     provisioner "local-exec" {
+         command = "printf '\n${self.public_ip}' >> aws_hosts"
+         # note that single quotes around what we are passing into the aws_hosts file
+         # the aws_hosts file is local on Cloud9 development instance where we are running terraform.
+     }
+     
+     # https://developer.hashicorp.com/terraform/language/resources/provisioners/syntax
+     provisioner "local-exec" {
+         when = destroy
+         command = "sed -i '/^[0-9]/d' aws_hosts"
+         # regex expression is used above
+         # sed is linux. It will perform the operation on the aws_hosts file.
+         # Any line beginnin with a number [0-9] will be removed  /d at the end means delete the line.
+         # last is the filename that the sed operation will be performed on....
      }
  }
