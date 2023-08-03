@@ -47,19 +47,19 @@ variable access_ip {
     # then we would have to specify the following variable defintion here
     ## variable access_ip {
     ##    type = list(string)
-    ##    default = ["98.234.0.0/16"] using the square brackets. This is because the cidr_blocks in main.tf is a list so the
+    ##    default = ["98.234.0.0/16"] using the square brackets. This is because the cidr_blocks in main.tf (networking.tf) is a list so the
     # squre brackets must be present in one way or the other......
     # NOTE: I have expanded the default CIDR access block to 98.234.0.0/16 because internet outages will change the last 2 octets.
+    # We had an internet outage a week ago! and I found this out....
 }
 
 
 
+### aws_instance and compute stuff
 variable main_instance_type {
     type = string
     default = "t2.micro"
 }
-
-
 
 variable main_vol_size {
     type = number
@@ -67,8 +67,6 @@ variable main_vol_size {
     # this is the size in GiB
     # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance
 }
-
-
 
 # using this varaible for the count on EC2 instances implementation
 # we need this because count = length(local.azs) is only good for number of subnets (1 per availability zone)
@@ -80,6 +78,7 @@ variable main_instance_count {
 
 
 
+#### SSH STUFF
 variable key_name {
     type = string
 }
@@ -87,3 +86,7 @@ variable key_name {
 variable public_key_path {
     type = string
 }
+
+
+
+
