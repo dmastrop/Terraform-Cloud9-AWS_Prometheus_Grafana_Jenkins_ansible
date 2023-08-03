@@ -40,7 +40,7 @@ resource "aws_vpc" "mtc_vpc" {
     # use the .dec:: "dec (String) The generated id presented in non-padded decimal digits.""
     # aws will be aware of these tags
   }
-  
+
   lifecycle {
     create_before_destroy = true
     # https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle
@@ -69,7 +69,7 @@ resource "aws_internet_gateway" "mtc_internet_gateway" {
   # https://us-west-1.console.aws.amazon.com/cloud9/ide/04bc094b80d049aabfd8bb6ba529aac9?region=us-west-1#
   # the actual vpc_id is "vpc-053f4eb691ae6f7ae" but that does not matter
   # because we can read it from the state (above)
-  
+
   tags = {
     #Name = "mtc_igw"
     Name = "mtc_igw-${random_id.random.dec}"
@@ -87,7 +87,7 @@ resource "aws_internet_gateway" "mtc_internet_gateway" {
 # aws_route resource (not inline in aws_route table)
 resource "aws_route_table" "mtc_public_rt" {
   vpc_id = aws_vpc.mtc_vpc.id
-  
+
   tags = {
     Name = "mtc-public"
   }
@@ -110,7 +110,7 @@ resource "aws_route" "default_route" {
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/default_route_table
 resource "aws_default_route_table" "mtc_private_rt" {
   default_route_table_id = aws_vpc.mtc_vpc.default_route_table_id
-  
+
   tags = {
     Name = "mtc_private"
   }
@@ -133,29 +133,29 @@ resource "aws_subnet" "mtc_public_subnet" {
   # should always be provisioned in accordance with the number of cidr_blocks in the most general scenario....
   # https://developer.hashicorp.com/terraform/language/functions/length
   ## count = length(var.public_cidrs)
-  
+
   # we will not be using the var.public_cidrs any longer with the new definitions below so change count definition
   # NOTE: This assumes we have one subnet per availability_zone
   count = length(local.azs)
-  
+
   vpc_id = aws_vpc.mtc_vpc.id
-  
+
   ## cidr_block = var.public_cidrs[count.index]
   # this variable needs to be defined in variables.tf
   # reference the multiple cidr_blocks that we have now with the [count.index]
   # the first subnet that is created will have index of 0 and the second subnet will have an index of 1
   # these will index into the cidr_blocks in variables.tf accordingly.
-  
+
   # redefine cidr_block with indexing. For pubic use the count.index
   # for example, with 2 cidr_blocks, index 0 and 1. For 3 cidr_blocks, index 0,1,2
   # for private subnet use length(local.azs) + count.index
   # so for 2 cidr blocks, 2 and 3. For 3 cidr_blocks, 3,4,5
   # NOTE: there is no overlap of private and public subnets
   cidr_block = cidrsubnet(var.vpc_cidr, 8, count.index)
-  
+
   map_public_ip_on_launch = true
   # Specify true to indicate that instances launched into the subnet should be assigned a public IP address. 
-  
+
   #availability_zone = data.aws_availability_zones.available.names[0]
   ## availability_zone = data.aws_availability_zones.available.names[count.index]
   # terraform console, we tested this out. There are currently 2 of them available in us-west-1
@@ -166,8 +166,8 @@ resource "aws_subnet" "mtc_public_subnet" {
   # do the same in private subnet below
   availability_zone = local.azs[count.index]
 
-# modify the subnet tag so that it corresponds to the count.index +1 (count.index starts at 0 so the tag will
-# start at 1). Use the following interpoloation syntax.
+  # modify the subnet tag so that it corresponds to the count.index +1 (count.index starts at 0 so the tag will
+  # start at 1). Use the following interpoloation syntax.
   tags = {
     Name = "mtc-public-${count.index + 1}"
   }
@@ -178,23 +178,23 @@ resource "aws_subnet" "mtc_public_subnet" {
 #resource "aws_subnet" "mtc_public_subnet" {
 #  vpc_id = aws_vpc.mtc_vpc.id
 #  cidr_block = var.public_cidrs
-  # this variable needs to be defined in variables.tf
+# this variable needs to be defined in variables.tf
 #  map_public_ip_on_launch = true
-  # Specify true to indicate that instances launched into the subnet should be assigned a public IP address. 
+# Specify true to indicate that instances launched into the subnet should be assigned a public IP address. 
 #  availability_zone = data.aws_availability_zones.available.names[0]
-  # terraform console, we tested this out. There are currently 2 of them available in us-west-1
+# terraform console, we tested this out. There are currently 2 of them available in us-west-1
 
 # for multiple subnets it is inefficient to add more resourcce blocks (below)
 # it is better to use the count meta-argument as shown above
 #resource "aws_subnet" "mtc_public_subnet2" {
 #  vpc_id = aws_vpc.mtc_vpc.id
 #  cidr_block = var.public_cidrs
-  # this variable needs to be defined in variables.tf
+# this variable needs to be defined in variables.tf
 #  map_public_ip_on_launch = true
-  # Specify true to indicate that instances launched into the subnet should be assigned a public IP address. 
+# Specify true to indicate that instances launched into the subnet should be assigned a public IP address. 
 #  availability_zone = data.aws_availability_zones.available.names[0]
-  # terraform console, we tested this out
-  
+# terraform console, we tested this out
+
 #  tags = {
 #    Name = "mtc-public"
 #  }
@@ -216,30 +216,30 @@ resource "aws_subnet" "mtc_private_subnet" {
   # should always be provisioned in accordance with the number of cidr_blocks in the most general scenario....
   # https://developer.hashicorp.com/terraform/language/functions/length
   ## count = length(var.private_cidrs)
-  
+
   # we will not be using the var.public_cidrs any longer with the new definitions below so change count definition
   # NOTE: This assumes we have one subnet per availability_zone
   count = length(local.azs)
-  
+
   vpc_id = aws_vpc.mtc_vpc.id
-  
+
   ## cidr_block = var.private_cidrs[count.index]
   # this variable needs to be defined in variables.tf
   # reference the multiple cidr_blocks that we have now with the [count.index]
   # the first subnet that is created will have index of 0 and the second subnet will have an index of 1
   # these will index into the cidr_blocks in variables.tf accordingly.
-  
+
   # redefine cidr_block with indexing. For pubic use the count.index
   # for example, with 2 cidr_blocks, index 0 and 1. For 3 cidr_blocks, index 0,1,2
   # for private subnet use length(local.azs) + count.index
   # so for 2 cidr blocks, 2 and 3. For 3 cidr_blocks, 3,4,5
   # NOTE: there is no overlap of private and public subnets
   cidr_block = cidrsubnet(var.vpc_cidr, 8, length(local.azs) + count.index)
-  
+
   map_public_ip_on_launch = false
   # Specify true to indicate that instances launched into the subnet should be assigned a public IP address. 
   # this is not required on the private subnet. We do not want the instances to have public IP addresses
-  
+
   #availability_zone = data.aws_availability_zones.available.names[0]
   ## availability_zone = data.aws_availability_zones.available.names[count.index]
   # terraform console, we tested this out. There are currently 2 of them available in us-west-1
@@ -250,26 +250,26 @@ resource "aws_subnet" "mtc_private_subnet" {
   # do the same in public subnet above
   availability_zone = local.azs[count.index]
 
-# modify the subnet tag so that it corresponds to the count.index +1 (count.index starts at 0 so the tag will
-# start at 1). Use the following interpoloation syntax.
+  # modify the subnet tag so that it corresponds to the count.index +1 (count.index starts at 0 so the tag will
+  # start at 1). Use the following interpoloation syntax.
   tags = {
     Name = "mtc-private-${count.index + 1}"
   }
-}  
+}
 
 
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table_association
 resource "aws_route_table_association" "mtc_public_assoc" {
-  count = length(local.azs) 
+  count = length(local.azs)
   # the syntax below can be verified using terraform console, for example
   # > aws_subnet.mtc_public_subnet[0].id
   # "subnet-0bcc23363d47f4d76"
   # splat syntax follows; note in this simple case count.index is 0 and 1:
   ##subnet_id = aws_subnet.mtc_public_subnet.*.id[count.index]
-  
+
   # the above splat syntax accomplishes the same thing as this below:
-  subnet_id = aws_subnet.mtc_public_subnet[count.index].id
+  subnet_id      = aws_subnet.mtc_public_subnet[count.index].id
   route_table_id = aws_route_table.mtc_public_rt.id
 }
 # NOTE: all private subnets will default to using the default_route_table specified above
@@ -279,19 +279,19 @@ resource "aws_route_table_association" "mtc_public_assoc" {
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group
 resource "aws_security_group" "mtc_sg" {
-  name = "public_sg"
+  name        = "public_sg"
   description = "Security gorup for public instances"
-  vpc_id = aws_vpc.mtc_vpc.id
+  vpc_id      = aws_vpc.mtc_vpc.id
 }
 
 
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule
 resource "aws_security_group_rule" "ingress_all" {
-  type = "ingress"
+  type      = "ingress"
   from_port = 0
-  to_port = 65535
-  protocol = "-1"
+  to_port   = 65535
+  protocol  = "-1"
   # this means all protocols: icmp, tcp, udp, etc.....
   cidr_blocks = [var.access_ip, var.cloud9_ip]
   # note that cidr_blocks is a list so need the []
@@ -304,10 +304,10 @@ resource "aws_security_group_rule" "ingress_all" {
 
 
 resource "aws_security_group_rule" "egress_all" {
-  type = "egress"
+  type      = "egress"
   from_port = 0
-  to_port = 65535
-  protocol = "-1"
+  to_port   = 65535
+  protocol  = "-1"
   # this means all protocols: icmp, tcp, udp, etc.....
   cidr_blocks = ["0.0.0.0/0"]
   # note that cidr_blocks is a list so need the []

@@ -1,11 +1,11 @@
 # https://developer.hashicorp.com/terraform/language/values/variables
 
 ### NETWORKING STUFF
-variable vpc_cidr {
-# this will cause a prompt at runtime if no default is specified
-    type = string
-    default = "10.124.0.0/16"
-    #default = "10.123.0.0/16"
+variable "vpc_cidr" {
+  # this will cause a prompt at runtime if no default is specified
+  type    = string
+  default = "10.124.0.0/16"
+  #default = "10.123.0.0/16"
 }
 
 
@@ -42,63 +42,66 @@ variable vpc_cidr {
 
 
 ### SECURITY STUFF
-variable access_ip {
-    type = string
-    default = "98.234.0.0/16"
-    # NOTE an alternate sytax here. If we used this variable as  cidr_blocks = var.access_ip (NOTE: no square brackets)
-    # then we would have to specify the following variable defintion here
-    ## variable access_ip {
-    ##    type = list(string)
-    ##    default = ["98.234.0.0/16"] using the square brackets. This is because the cidr_blocks in main.tf (networking.tf) is a list so the
-    # squre brackets must be present in one way or the other......
-    # NOTE: I have expanded the default CIDR access block to 98.234.0.0/16 because internet outages will change the last 2 octets.
-    # We had an internet outage a week ago! and I found this out....
+variable "access_ip" {
+  type    = string
+  default = "98.234.0.0/16"
+  # NOTE an alternate sytax here. If we used this variable as  cidr_blocks = var.access_ip (NOTE: no square brackets)
+  # then we would have to specify the following variable defintion here
+  ## variable access_ip {
+  ##    type = list(string)
+  ##    default = ["98.234.0.0/16"] using the square brackets. This is because the cidr_blocks in main.tf (networking.tf) is a list so the
+  # squre brackets must be present in one way or the other......
+  # NOTE: I have expanded the default CIDR access block to 98.234.0.0/16 because internet outages will change the last 2 octets.
+  # We had an internet outage a week ago! and I found this out....
 }
 
-variable cloud9_ip {
-    type = string
-    default = "54.215.200.20/32"
-    # note that this is an Elastic IP address manually bound to the cloud9 EC2 instance
-    # we need a static ip on the Cloud9 so that we can set in ingress security group rule on the EC2 aws_instance(s)
-    # to allow SSH traffic. This will permit us to SSH to the aws_instance(s)
-    # the security group rule is aws_security_group_rule in networking.tf file.
-    # add var.cloud9_ip to the cidr_blocks that are allowed ingress access to aws_intance(s)
+variable "cloud9_ip" {
+  type    = string
+  default = "54.215.200.20/32"
+  # note that this is an Elastic IP address manually bound to the cloud9 EC2 instance
+  # we need a static ip on the Cloud9 so that we can set in ingress security group rule on the EC2 aws_instance(s)
+  # to allow SSH traffic. This will permit us to SSH to the aws_instance(s)
+  # the security group rule is aws_security_group_rule in networking.tf file.
+  # add var.cloud9_ip to the cidr_blocks that are allowed ingress access to aws_intance(s)
 }
+
+
 
 
 
 
 
 ### aws_instance AND COMPUTE STUFF
-variable main_instance_type {
-    type = string
-    default = "t2.micro"
+variable "main_instance_type" {
+  type    = string
+  default = "t2.micro"
 }
 
-variable main_vol_size {
-    type = number
-    default = 8
-    # this is the size in GiB
-    # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance
+variable "main_vol_size" {
+  type    = number
+  default = 8
+  # this is the size in GiB
+  # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance
 }
 
 # using this varaible for the count on EC2 instances implementation
 # we need this because count = length(local.azs) is only good for number of subnets (1 per availability zone)
 # since we can have multiple EC2 instances in each subnet we need a different type of number and this is it:
-variable main_instance_count {
-    type = number
-    default = 1
+variable "main_instance_count" {
+  type    = number
+  default = 1
 }
 
 
 
 #### SSH STUFF
-variable key_name {
-    type = string
+# see terraform.tfvars for the actual values 
+variable "key_name" {
+  type = string
 }
 
-variable public_key_path {
-    type = string
+variable "public_key_path" {
+  type = string
 }
 
 
