@@ -1,5 +1,6 @@
 # https://developer.hashicorp.com/terraform/language/values/variables
 
+### NETWORKING STUFF
 variable vpc_cidr {
 # this will cause a prompt at runtime if no default is specified
     type = string
@@ -40,6 +41,7 @@ variable vpc_cidr {
 
 
 
+### SECURITY STUFF
 variable access_ip {
     type = string
     default = "98.234.0.0/16"
@@ -53,9 +55,21 @@ variable access_ip {
     # We had an internet outage a week ago! and I found this out....
 }
 
+variable cloud9_ip {
+    type = string
+    default = "54.215.200.20/32"
+    # note that this is an Elastic IP address manually bound to the cloud9 EC2 instance
+    # we need a static ip on the Cloud9 so that we can set in ingress security group rule on the EC2 aws_instance(s)
+    # to allow SSH traffic. This will permit us to SSH to the aws_instance(s)
+    # the security group rule is aws_security_group_rule in networking.tf file.
+    # add var.cloud9_ip to the cidr_blocks that are allowed ingress access to aws_intance(s)
+}
 
 
-### aws_instance and compute stuff
+
+
+
+### aws_instance AND COMPUTE STUFF
 variable main_instance_type {
     type = string
     default = "t2.micro"
