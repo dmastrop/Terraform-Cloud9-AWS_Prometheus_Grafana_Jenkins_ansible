@@ -1,0 +1,35 @@
+---
+- name: Install Grafana
+# this is just one play for now.
+  hosts: hosts
+  # what we want to run the playbook on. This is a local test
+  become: yes
+  # we must be root to run apt
+  
+  tasks:
+  # we will use the main-userdata.tpl file to scaffold this (the -names below). See below
+    
+    - name: download apt key
+    # download the apt key
+    # see this documentation: apt_module
+    # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html
+    # we will not need wget as in here: wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add - &&
+    # we can use a url. See documentation above
+    
+    - name: add grafana repo to sources.list
+    # add grafana to the sources.list
+    # echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list &&
+    # we have apt respository module for this, apt_repository_module
+    # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_repository_module.html
+   
+    - name: update apt cache and intall Grafana
+    # sudo apt-get -y update &&
+    # sudo apt-get -y install grafana &&
+    
+    - name: Ensure Grafana is started and enabled.
+    # sudo systemctl start grafana-server &&
+    # sudo systemctl enable grafana-server.service
+    # we have a ansible.builtin.systemd_service module
+    # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/systemd_service_module.html
+    
+    
