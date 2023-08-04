@@ -9,7 +9,7 @@
   tasks:
   # we will use the main-userdata.tpl file to scaffold this (the -names below). See below
     
-    - name: download apt key
+    - name: Download apt key
     # download the apt key
     # see this documentation: apt_module
     # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html
@@ -22,7 +22,7 @@
         state: present
     
     
-    - name: add grafana repo to sources.list
+    - name: Add grafana repo to sources.list
     # add grafana to the sources.list
     # echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list &&
     # we have apt respository module for this, apt_repository_module
@@ -36,15 +36,32 @@
         state: present
     
    
-    #- name: update apt cache and intall Grafana
+    - name: Update apt cache and intall Grafana
     # sudo apt-get -y update &&
     # sudo apt-get -y install grafana &&
+    # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html
+      #update_cache runs the equivalent of apt-get update before the operation. Can be run as part of the package installation or as a separate step
+      # default is to not update the cache
+      ansible.builtin.apt:
+        name: grafana
+        # this is the name of the application
+        update_cache: yes
+        
     
     
-    #- name: Ensure Grafana is started and enabled.
+    - name: Ensure Grafana is started and enabled.
     # sudo systemctl start grafana-server &&
     # sudo systemctl enable grafana-server.service
     # we have a ansible.builtin.systemd_service module
     # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/systemd_service_module.html
+      #enabled is whether the unit should start on boot. At least one of state and enabled are required.
+      #state is started/stooped will not run unless they need to be run and will not run on themselves.
+      #ansible will always start grafana-service.  Can even use it to start if granfana-service crashes.
+        #restarted will always bounce the unit. Reloaded will always reload....
+      ansible.builtin.systemd:
+        name: grafana-server
+        #note that the service is grafana-service and not grafana.  Grafana is the application name.
+        state: started
+        enabled: yes
     
     
