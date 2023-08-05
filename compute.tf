@@ -190,3 +190,10 @@ resource "null_resource" "grafana_install" {
     # ansible-playbook is run locally on Cloud9 but uses ssh to aws_hosts to deploy the ansible playbook on the remote aws_hosts
   }
 } 
+
+
+
+## not sure when he added this in????
+#output "instance_ips" {
+#  value = { for i in aws_instance.mtc_main[*] : i.tags.Name => "${i.public_ip}:3000" }
+#}
