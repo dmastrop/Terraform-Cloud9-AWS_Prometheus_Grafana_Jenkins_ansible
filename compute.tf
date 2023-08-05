@@ -95,8 +95,8 @@ resource "aws_instance" "mtc_main" {
   ## user_data = templatefile("./main-userdata.tpl", { new_hostname = "mtc_main-${random_id.mtc_compute_node_id[count.index].dec}" })
   # template file https://developer.hashicorp.com/terraform/language/functions/templatefile
   # main-userdata.tpl start grafana up on the EC2 instance that has been deployed.
-  ##root_block_device {
-  ##  volume_size = var.main_vol_size
+  root_block_device {
+    volume_size = var.main_vol_size
     # this is a variable in variables.tf
   }
 
