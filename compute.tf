@@ -100,8 +100,8 @@ resource "aws_instance" "mtc_main" {
     # this is a variable in variables.tf
   }
 
-  ##tags = {
-  ##  Name = "mtc_main-${random_id.mtc_compute_node_id[count.index].dec}"
+  tags = {
+    Name = "mtc_main-${random_id.mtc_compute_node_id[count.index].dec}"
     # random resource is different name from that used in networking.tf.  The use here is indexed by count.index
     # A new random number will be created based on the count.index number.  Note that if count=2 (Number of EC2 instances)
     # that the index will be 0 (subnet 0) and 1 (subnet 1). So first instance will go into subnet 0 with name random[0] 
@@ -109,7 +109,7 @@ resource "aws_instance" "mtc_main" {
     # if count=4 (var.main_instance_count) then index is 0,1,2,3 and these map to subnet 0, subnet 1, subnet 2, and subnet 3.  
     # Since we do not have subnet 2 and 3 this will fail. So the subnetting should be based upon the local(azs) since we have 
     # 1 subnet for each availability zone.
-  ##}
+  }
 
 
 
