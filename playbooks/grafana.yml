@@ -1,8 +1,12 @@
 ---
 - name: Install Grafana
 # this is just one play in playbook for now.
-  hosts: hosts
+  #hosts: hosts
   # what we want to run the playbook on. This is a local test
+  hosts: main
+  # integrating ansible with terraform requires hosts main. Also changed aws_hosts file from 
+  # [hosts] group to [main] grouping.
+  # With this change the aws_hosts file will be specified as custom inventory file everytime we run grafana.
   become: yes
   # we must be root to run apt
   

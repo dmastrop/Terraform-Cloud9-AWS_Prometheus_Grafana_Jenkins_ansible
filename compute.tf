@@ -89,16 +89,19 @@ resource "aws_instance" "mtc_main" {
   #subnet_id = aws_subnet.mtc_public_subnet[0].id
   # for now use the first instance index 0 but later we will put in a count
   subnet_id = aws_subnet.mtc_public_subnet[count.index].id
-  user_data = templatefile("./main-userdata.tpl", { new_hostname = "mtc_main-${random_id.mtc_compute_node_id[count.index].dec}" })
+  
+  ## Comment out the user_data. We are integrating ansible with terraform and will not need user_data
+  ## do deploy the grafana on the EC2 instances
+  ## user_data = templatefile("./main-userdata.tpl", { new_hostname = "mtc_main-${random_id.mtc_compute_node_id[count.index].dec}" })
   # template file https://developer.hashicorp.com/terraform/language/functions/templatefile
   # main-userdata.tpl start grafana up on the EC2 instance that has been deployed.
-  root_block_device {
-    volume_size = var.main_vol_size
+  ##root_block_device {
+  ##  volume_size = var.main_vol_size
     # this is a variable in variables.tf
   }
 
-  tags = {
-    Name = "mtc_main-${random_id.mtc_compute_node_id[count.index].dec}"
+  ##tags = {
+  ##  Name = "mtc_main-${random_id.mtc_compute_node_id[count.index].dec}"
     # random resource is different name from that used in networking.tf.  The use here is indexed by count.index
     # A new random number will be created based on the count.index number.  Note that if count=2 (Number of EC2 instances)
     # that the index will be 0 (subnet 0) and 1 (subnet 1). So first instance will go into subnet 0 with name random[0] 
@@ -106,7 +109,7 @@ resource "aws_instance" "mtc_main" {
     # if count=4 (var.main_instance_count) then index is 0,1,2,3 and these map to subnet 0, subnet 1, subnet 2, and subnet 3.  
     # Since we do not have subnet 2 and 3 this will fail. So the subnetting should be based upon the local(azs) since we have 
     # 1 subnet for each availability zone.
-  }
+  ##}
 
 
 
