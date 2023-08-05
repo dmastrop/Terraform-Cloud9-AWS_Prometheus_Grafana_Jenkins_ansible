@@ -10,7 +10,14 @@ This is an inherent problem with provisioners when used with terraform. There is
 terraform with provisioners and one can hit these types of issues.....
 
 This is where ansible comes in.  This branch includes the basic development ansible playbook to deploy 
-grafana ON THE LOCAL CLOUD9 EC2 instance (not the aws_instance that terraform deploys)
+grafana ON THE LOCAL CLOUD9 EC2 instance (not the aws_instance that terraform deploys). This is in the /playbooks/granfana.yml
+Note that need to modify the AWS security group access list to add my PC ip address or a CIDR block
+that covers it so we can hit the granfana instance from the browser.
+
+There is also a grafana-destroy.yml created to teardown the grafana application that is running on
+the Cloud9 local instance.   NOTE: must first stop grafana-service BEFORE you can remove the installation. 
+It will NOT get removed if the service is not explicitly stopped
+
 This is just development of the ansible base code
 
 We will work on integrating this ansible code into the terraform IaC AWS EC2 scripts in the **main** branch.
