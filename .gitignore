@@ -2,3 +2,4 @@ terraform
 .terraform
 #.terraform.*
 test2_git_ignore
+.ansible-retry
