@@ -173,3 +173,20 @@ resource "aws_instance" "mtc_main" {
     # aws_instance resource (the local-provisioner is in the aws_instance resource and can use the self object)
 ##  }
 ##}
+
+
+
+# Ansible null_resource:
+# We want to place this in a null_resource because we only want it to run once for all aws_instances. So we do not want to put it
+# in the aws_instance resource block.  The aws_instances need to be up when this is run so put it at the bottom of compute.tf
+resource "null_resource" "grafana_install" {
+  # we do not want to run this before all the aws_instances are up and running
+  # note there is no count or count.index specified, so ALL instances must be up and running before null_instance ansible runs
+  # created vs. initialized?
+  # note that this is a loal provisioner, so it is run locally and ansible-playbook is executed on aws_hosts via ssh (private key)
+  depends_on [aws_instance.mtc_main]
+  provisioner "local-exec" {
+    command = "ansible-playbook -i aws_hosts --key-file /home/ubuntu/.ssh/mtckey playbooks/grafana.yml"
+    # ansible-playbook is run locally on Cloud9 but uses ssh to aws_hosts to deploy the ansible playbook on the remote aws_hosts
+  }
+} 
