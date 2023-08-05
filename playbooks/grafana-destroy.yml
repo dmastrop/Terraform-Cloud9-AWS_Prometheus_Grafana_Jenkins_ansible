@@ -1,5 +1,6 @@
 ---
-- name: Install Grafana
+- name: Destroy Grafana
+#- name: Install Grafana
 # this is just one play in playbook for now.
   hosts: hosts
   # what we want to run the playbook on. This is a local test
@@ -9,7 +10,8 @@
   tasks:
   # we will use the main-userdata.tpl file to scaffold this (the -names below). See below
     
-    - name: Download apt key
+    - name: Delete the apt key
+    #- name: Download apt key
     # download the apt key
     # see this documentation: apt_module
     # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html
@@ -19,10 +21,19 @@
       ansible.builtin.apt_key:
       # note the syntax here: ansible.builtin.apt_key   That is an underscore on the last apt_key
         url: https://packages.grafana.com/gpg.key
-        state: present
+        #state: present
+        state: absent
+        # for destroy must give the actual id. The url will not suffice.
+        # get the key id from sudo apt-key list.
+        # pub   rsa3072 2023-01-06 [SC] [expires: 2025-01-05]
+        # 0E22 EB88 E39E 1227 7A77  60AE 9E43 9B10 2CF3 C0C6  <<<< this is the id.  But must remove the spaces
+        # uid           [ unknown] Grafana Labs <engineering@grafana.com>
+        # sub   rsa3072 2023-01-06 [E] [expires: 2025-01-05]
+        id: 0E22EB88E39E12277A7760AE9E439B102CF3C0C6 
     
     
-    - name: Add grafana repo to sources.list
+    - name: Remove the grafana repo (Remove granfana.list)
+    #- name: Add grafana repo to sources.list
     # add grafana to the sources.list
     # echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list &&
     # we have apt respository module for this, apt_repository_module
@@ -33,23 +44,35 @@
         repo: deb https://packages.grafana.com/oss/deb stable main
         filename: grafana
         # this automatically appends the .list to this file
-        state: present
+        #state: present
+        state: absent
     
-   
-    - name: Update apt cache and intall Grafana
-    # sudo apt-get -y update &&
-    # sudo apt-get -y install grafana &&
-    # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html
-      #update_cache runs the equivalent of apt-get update before the operation. Can be run as part of the package installation or as a separate step
-      # default is to not update the cache
+    
+  ## the grafana-service needs to be stopped ***first**** in order to remove grafana
+    - name: Ensure Grafana is stopped and disabled
+      ansible.builtin.systemd:
+        name: grafana-server
+        enabled: no
+        state: stopped
+    
+    
+    - name: Remove Grafana
+     # sudo apt-get -y update &&
+     # sudo apt-get -y install grafana &&
+     # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html
+       #update_cache runs the equivalent of apt-get update before the operation. Can be run as part of the package installation or as a separate step
+       # default is to not update the cache
       ansible.builtin.apt:
         name: grafana
         # this is the name of the application
-        update_cache: yes
-        
-    
-    
-    - name: Ensure Grafana is started and enabled.
+        #update_cache: yes
+        state: absent
+        # defaulted to present before, but now must explicitly state: absent.
+  
+ 
+  
+    ## the grafana-service needs to be stopped first in order to remove grafana (see above)
+    #- name: Ensure Grafana is started and enabled.
     # sudo systemctl start grafana-server &&
     # sudo systemctl enable grafana-server.service
     # we have a ansible.builtin.systemd_service module
@@ -58,10 +81,10 @@
       #state is started/stooped will not run unless they need to be run and will not run on themselves.
       #ansible will always start grafana-service.  Can even use it to start if granfana-service crashes.
         #restarted will always bounce the unit. Reloaded will always reload....
-      ansible.builtin.systemd:
-        name: grafana-server
+    #  ansible.builtin.systemd:
+    #    name: grafana-server
         #note that the service is grafana-service and not grafana.  Grafana is the application name.
-        state: started
-        enabled: yes
+    #    state: started
+    #    enabled: yes
     
     
