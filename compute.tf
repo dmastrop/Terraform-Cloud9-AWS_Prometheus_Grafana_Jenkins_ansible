@@ -144,32 +144,32 @@ resource "aws_instance" "mtc_main" {
 # This null_resource can be applied, tainted, etc just like any other resource.
 
 # https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource
-resource "null_resource" "grafana_update" {
+##resource "null_resource" "grafana_update" {
   # this needs to be run for each instance, so we need to provide the count of instances
-  count = var.main_instance_count
+##  count = var.main_instance_count
 
   # https://developer.hashicorp.com/terraform/language/resources/provisioners/remote-exec
-  provisioner "remote-exec" {
+##  provisioner "remote-exec" {
     # this remote provisioner will upgrade grafana, create a log and then create a log entry in the log file indicating
     # that granfana was updated.
-    inline = ["sudo apt upgrade -y grafana && touch upgrade.log && echo 'I upgraded Grafana' >> upgrade.log"]
-  }
+ ##   inline = ["sudo apt upgrade -y grafana && touch upgrade.log && echo 'I upgraded Grafana' >> upgrade.log"]
+ ## }
 
   # this is the connection block, i.e. how we will connect to the EC2 instance to run the inline command above
   # this is included in the null_resource along with the remote-exec provisioner block above
   # https://developer.hashicorp.com/terraform/language/resources/provisioners/connection
-  connection {
-    type        = "ssh"
-    user        = "ubuntu"
-    private_key = file("/home/ubuntu/.ssh/mtckey")
+##  connection {
+##    type        = "ssh"
+##    user        = "ubuntu"
+##    private_key = file("/home/ubuntu/.ssh/mtckey")
     # this is the local cloud9 directory and will provide the credentials to connect to the EC2 instance.
     # note that on cloud9 we have the public private key pair that we created ssh-keygen -t rsa /home/ubuntu/.ssh
     # also note that the public key is on each EC instance per key_name = aws_key_pair.mtc_auth.id and 
     # resource "aws_key_pair" "mtc_auth" with the path defined in terraform.tfvars file key_name = "mtc_key"
     # key_name is the name for the key PAIR.
     # public_key_path = "/home/ubuntu/.ssh/mtckey.pub"   So each EC2 instance has the public key mtc_key.
-    host = aws_instance.mtc_main[count.index].public_ip
+##    host = aws_instance.mtc_main[count.index].public_ip
     # we cannot use the self object here for host. This remote provisioner is in a null_resource and not the 
     # aws_instance resource (the local-provisioner is in the aws_instance resource and can use the self object)
-  }
-}
+##  }
+##}
