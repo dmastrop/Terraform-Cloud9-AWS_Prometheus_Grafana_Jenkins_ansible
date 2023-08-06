@@ -114,7 +114,7 @@
       ansible.builtin.user:
         name: prometheus
         group: prometheus
-       shell: /sbin/nologin
+        shell: /sbin/nologin
        #this is a service user with no provisioning for login or system access
    
    
