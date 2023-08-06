@@ -1,6 +1,7 @@
 ---
 #- name: Install Grafana
 - name: Bootstrap Main EC2 Node
+  # This playbook will be executed on each EC2 instance from Cloud9 using ssh into each instance
   #hosts: hosts
   # what we want to run the playbook on. This is a local test
   hosts: main
@@ -69,19 +70,68 @@
         state: started
         enabled: yes
         
-    # Prometheus installation
-    # Use teh PrometheusInstallNotes.txt to scaffold this.
+        
+        
+        
+        
+        
+  # Prometheus installation
+  # Use the PrometheusInstallNotes.txt to scaffold this.
     
-    #- name: Download Prometheus
-    #- name: Extract Prometheus Resources using tar file
+    - name: Download Prometheus
+    # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/get_url_module.html
+      ansible.builtin.get_url:
+        url: https://github.com/prometheus/prometheus/releases/download/v2.30.3/prometheus-2.30.3.linux-amd64.tar.gz
+        locaton: /home/ubuntu
+        # this is the location on the EC2 aws_instance
+    
+    
+    
+    - name: Extract Prometheus Resources using tar file
+    # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/unarchive_module.html
+      ansible.builtin.unarchive:
+        src: /home/ubuntu/prometheus-2.30.3.linux-amd64.tar.gz
+        # recall /home/ubuntu is where the tar was downloaded to
+        dest: /home/ubuntu
+        remote_src: yes
+        # this is very important.If this is not included it assumes you are unzipping 
+        # locally (on Cloud9). We are unzipping the tar that has been downloaded into the EC2 
+        # instance in /home/ubuntu and not unzipping locally.
+        
+   
+   
     #- name: Create a Prometheus Group
+   
+   
+   
     #- name: Create a Prometheus User
+   
+   
+   
     #- name: Create Prometheus Directories using a loop
+   
+   
+   
     #- name: Setting Permissions on some of the Directories
+   
+   
+   
     #- name: Copy Files to /usr/local/bin 
+   
+   
+   
     #- name: Copy Files to /etc/prometheus
+   
+   
+   
     #- name: Create Config File /etc/prometheus/prometheus.yml
+   
+   
+   
     #- name: Create a Systemd File /etc/systemd/system/prometheus.service
+   
+   
+   
     #- name: Ensure Prometheus is Started systemctl start and enable
     
     
