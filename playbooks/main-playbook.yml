@@ -102,20 +102,20 @@
    
     - name: Create a Prometheus Group
     # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/group_module.html
-     ansible.builtin.group:
-       name: prometheus
-       state: present
+      ansible.builtin.group:
+        name: prometheus
+        state: present
       
   
    
     - name: Create a Prometheus User
    # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html
-   @ add a user and put the user in a group and provide shell of /sbin/nologin
-     ansible.builtin.user:
-      name: prometheus
-      group: prometheus
-      shell: /sbin/nologin
-     #this is a service user with no provisioning for login or system access
+   # add a user and put the user in a group and provide shell of /sbin/nologin
+      ansible.builtin.user:
+        name: prometheus
+        group: prometheus
+       shell: /sbin/nologin
+       #this is a service user with no provisioning for login or system access
    
    
    
