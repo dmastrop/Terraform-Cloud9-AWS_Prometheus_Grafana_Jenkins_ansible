@@ -200,6 +200,6 @@ resource "null_resource" "grafana_install" {
 
 
 ## not sure when he added this in????
-#output "instance_ips" {
-#  value = { for i in aws_instance.mtc_main[*] : i.tags.Name => "${i.public_ip}:3000" }
-#}
+output "instance_ips_for_grafana_access" {
+  value = { for i in aws_instance.mtc_main[*] : i.tags.Name => "${i.public_ip}:3000" }
+}
