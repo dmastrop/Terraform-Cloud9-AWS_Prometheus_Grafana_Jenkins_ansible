@@ -82,7 +82,7 @@
     # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/get_url_module.html
       ansible.builtin.get_url:
         url: https://github.com/prometheus/prometheus/releases/download/v2.30.3/prometheus-2.30.3.linux-amd64.tar.gz
-        locaton: /home/ubuntu
+        location: /home/ubuntu
         # this is the location on the EC2 aws_instance
     
     
