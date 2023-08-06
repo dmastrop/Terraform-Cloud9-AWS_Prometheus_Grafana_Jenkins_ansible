@@ -70,6 +70,8 @@
         enabled: yes
         
     # Prometheus installation
+    # Use teh PrometheusInstallNotes.txt to scaffold this.
+    
     #- name: Download Prometheus
     #- name: Extract Prometheus Resources using tar file
     #- name: Create a Prometheus Group
