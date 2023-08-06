@@ -119,9 +119,15 @@ resource "aws_instance" "mtc_main" {
   # https://developer.hashicorp.com/terraform/language/resources/provisioners/local-exec
   # this provisioner is executed locally whenever a new aws_instance is created.  the command will be run.
   provisioner "local-exec" {
-    command = "printf '\n${self.public_ip}' >> aws_hosts"
+    ##command = "printf '\n${self.public_ip}' >> aws_hosts"
     # note that single quotes around what we are passing into the aws_hosts file
     # the aws_hosts file is local on Cloud9 development instance where we are running terraform.
+    # For ansible integration, since there is a problem with the ansible connector to the EC2 instance when 
+    # null_instance below is running (ansible-playbook is run before the EC2 instance is fully up), 
+    # add the following to the command below: 
+    # use self.id to reference the paricular instance-id. This will prevent null_resource granfana install below from running
+    # until the EC2 aws_instances are all up and running.
+    command = "printf '\n${self.public_ip}' >> aws_hosts && aws ec2 wait instance-status-ok  --instance-ids ${self.id} --region us-west-1"
   }
 
   # https://developer.hashicorp.com/terraform/language/resources/provisioners/syntax
