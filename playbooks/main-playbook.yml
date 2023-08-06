@@ -1,6 +1,6 @@
 ---
-- name: Install Grafana
-# this is just one play in playbook for now.
+#- name: Install Grafana
+- name: Bootstrap Main EC2 Node
   #hosts: hosts
   # what we want to run the playbook on. This is a local test
   hosts: main
