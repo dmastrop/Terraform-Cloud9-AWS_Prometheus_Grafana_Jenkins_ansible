@@ -11,6 +11,7 @@
   # we must be root to run apt
   
   tasks:
+  # Grafana installation
   # we will use the main-userdata.tpl file to scaffold this (the -names below). See below
     
     - name: Download apt key
@@ -67,5 +68,18 @@
         #note that the service is grafana-service and not grafana.  Grafana is the application name.
         state: started
         enabled: yes
+        
+    # Prometheus installation
+    #- name: Download Prometheus
+    #- name: Extract Prometheus Resources using tar file
+    #- name: Create a Prometheus Group
+    #- name: Create a Prometheus User
+    #- name: Create Prometheus Directories using a loop
+    #- name: Setting Permissions on some of the Directories
+    #- name: Copy Files to /usr/local/bin 
+    #- name: Copy Files to /etc/prometheus
+    #- name: Create Config File /etc/prometheus/prometheus.yml
+    #- name: Create a Systemd File /etc/systemd/system/prometheus.service
+    #- name: Ensure Prometheus is Started systemctl start and enable
     
     
