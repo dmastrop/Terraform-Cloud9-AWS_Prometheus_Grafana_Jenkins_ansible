@@ -163,6 +163,8 @@
         # this is where the binaries will be
         remote_src: yes
         # all of this is done on remote EC2 instance and NOT on Cloud9
+        mode: '0755'
+        # chmod 755 the binaries
         owner: prometheus
         group: prometheus
       loop:
