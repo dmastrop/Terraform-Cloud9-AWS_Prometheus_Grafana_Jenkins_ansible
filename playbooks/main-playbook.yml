@@ -212,6 +212,18 @@
    
    
    
-    #- name: Ensure Prometheus is Started systemctl start and enable
-    
+    - name: Ensure Prometheus is Started systemctl start and enable
+    # systemctl start prometheus
+    # systemctl enable prometheus
+    # we have a ansible.builtin.systemd_service module
+    # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/systemd_service_module.html
+      #enabled is whether the unit should start on boot. At least one of state and enabled are required.
+      #state is started/stooped will not run unless they need to be run and will not run on themselves.
+      #ansible will always start this service.  Can even use it to start if prometheus crashes.
+        #restarted will always bounce the unit. Reloaded will always reload....
+      ansible.builtin.systemd:
+        name: prometheus
+        #note that the service is prometheus, which is the same as the application name....
+        state: started
+        enabled: yes
     
