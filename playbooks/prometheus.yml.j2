@@ -6,4 +6,4 @@ scrape_configs:
       #{- targets: ['localhost:9100']}#
       -targets: ['{{ listen_address }}:{{ listen_port }}']
       #{ prometheus instructed to listen to targest runnning on this address and port}#
-      #{ NOTE that ping 0.0.0.0 on Cloud9 will go to localhost }#
+      #{ NOTE that ping 0.0.0.0 on ubuntu will go to localhost }#
