@@ -11,6 +11,14 @@
   become: yes
   # we must be root to run apt
   
+  vars:
+    listen_address: 0.0.0.0
+    # 0.0.0.0 is localhost on Cloud9 testing
+    listen_port: 9090
+    # the above 2 are for the scrape address that Prometheus will use
+    # see the prometheus.yml.j2 file.
+  
+  
   tasks:
   # Grafana installation
   # we will use the main-userdata.tpl file to scaffold this (the -names below). See below
@@ -180,7 +188,16 @@
    
    
    
-    #- name: Create Config File /etc/prometheus/prometheus.yml
+    - name: Create Config File /etc/prometheus/prometheus.yml
+    # use the ansible.builtin.template module
+    # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/template_module.html
+      ansible.builtin.template:
+        src: prometheus.yml.j2
+        # we are already in the playbooks directory so we do not need a path
+        dest: /etc/prometheus/prometheus.yml
+        # with the ansible.builtin.tempalte the destination is ALWAYS remote
+        
+    
    
    
    
