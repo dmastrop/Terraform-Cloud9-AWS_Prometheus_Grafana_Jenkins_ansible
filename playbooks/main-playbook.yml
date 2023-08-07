@@ -120,8 +120,11 @@
    
    
     - name: Create Prometheus Directories using a loop
+    # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html
+    # https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html
       ansible.builtin.file:
-        path: " {{ item }} "
+        path: "{{ item }}"
+        # NOT " {{ item }} "
         # moustache syntax for iterating through. We have 5 files/directories to create.
         # item will be replaced by the loop list below. There are 5 files/directories to create
         state: directory
