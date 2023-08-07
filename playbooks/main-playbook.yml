@@ -119,7 +119,7 @@
    
    
    
-    - name: Create Prometheus Directories using a loop
+    - name: Create Prometheus Directories and Files using a loop and Setting Permissions 
     # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html
     # https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html
       ansible.builtin.file:
@@ -145,16 +145,35 @@
         - /var/lib/prometheus
      
      
-   
-    #- name: Setting Permissions on some of the Directories
-   
-   
-   
-    #- name: Copy Files to /usr/local/bin 
-   
-   
-   
-    #- name: Copy Files to /etc/prometheus
+    - name: Copy Files to /usr/local/bin
+    # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html
+    # this takes care of cp prometheus promtool /usr/local/bin/
+    # this takes care of cp -r consoles/ console_libraries/ /etc/prometheus/
+      ansible.builtin.copy:
+        src: "{{ item }}"
+        dest: /usr/local/bin
+        # this is where the binaries will be
+        remote_src: yes
+        # all of this is done on remote EC2 instance and NOT on Cloud9
+        owner: prometheus
+        group: prometheus
+      loop:
+      # the loop has all the source files
+      # one of them is from the directory where we unzipped the tar
+        - /home/ubuntu/prometheus-2.30.3.linux-amd64/prometheus
+        - /home/ubuntu/prometheus-2.30.3.linux-amd64/promtool
+  
+  
+  
+    - name: Copy Files to /etc/prometheus
+      ansible.builtin.copy:
+        src: "{{ item }}"
+        dest: /etc/prometheus
+        remote_src: yes
+        # this is all done on remote EC2 instance and not on Cloud9
+      loop:
+        - /home/ubuntu/prometheus-2.30.3.linux-amd64/consoles/
+        - /home/ubuntu/prometheus-2.30.3.linux-amd64/console_libraries/
    
    
    
