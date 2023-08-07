@@ -172,8 +172,8 @@
         remote_src: yes
         # this is all done on remote EC2 instance and not on Cloud9
       loop:
-        - /home/ubuntu/prometheus-2.30.3.linux-amd64/consoles/
-        - /home/ubuntu/prometheus-2.30.3.linux-amd64/console_libraries/
+        - /home/ubuntu/prometheus-2.30.3.linux-amd64/consoles
+        - /home/ubuntu/prometheus-2.30.3.linux-amd64/console_libraries
    
    
    
