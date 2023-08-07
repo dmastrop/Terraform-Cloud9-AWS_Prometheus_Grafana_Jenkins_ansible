@@ -3,3 +3,4 @@ terraform
 #.terraform.*
 test2_git_ignore
 .ansible-retry
+aws_hosts
