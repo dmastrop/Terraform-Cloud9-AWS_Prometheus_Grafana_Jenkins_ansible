@@ -119,9 +119,29 @@
    
    
    
-    #- name: Create Prometheus Directories using a loop
-   
-   
+    - name: Create Prometheus Directories using a loop
+      ansible.builtin.file:
+        path: " {{ item }} "
+        # moustache syntax for iterating through. We have 5 files/directories to create.
+        # item will be replaced by the loop list below. There are 5 files/directories to create
+        state: directory
+        recurse: yes
+        # allow us to set owner and group of these directories recursively
+        owner: prometheus
+        group: prometheus
+        # these will chown -R prometheus:prometheus /etc/prometheus /var/lib/prometheus
+        mode: '0755'
+        # this will chmod -R 775 /etc/prometheus/ /var/lib/prometheus/
+      loop:
+      # add all of our directories that we need to create
+      # this takes care of mkdir -p /etc/prometheus/{rules,rules.d,files_sd}  /var/lib/prometheus
+        - /etc/prometheus
+        - /etc/prometheus/rules
+        - /etc/prometheus/rules.d
+        - /etc/prometheus/files_sd
+        - /var/lib/prometheus
+     
+     
    
     #- name: Setting Permissions on some of the Directories
    
