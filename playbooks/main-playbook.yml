@@ -141,7 +141,7 @@
         owner: prometheus
         group: prometheus
         # these will chown -R prometheus:prometheus /etc/prometheus /var/lib/prometheus
-        mode: '0755'
+        mode: '0775'
         # this will chmod -R 775 /etc/prometheus/ /var/lib/prometheus/
       loop:
       # add all of our directories that we need to create
@@ -201,7 +201,7 @@
         
 
    
-    - name: Create a Systemd File /etc/systemd/system/prometheus.servi
+    - name: Create a Systemd File /etc/systemd/system/prometheus.service
     # use the ansible.builtin.template module
     # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/template_module.html
       ansible.builtin.template:
