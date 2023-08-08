@@ -6,7 +6,11 @@ After that, the dev_terraform_FULL_ansible branch terminates and is frozen after
 grafana blocks in the yaml file. THe yaml file has been renamed from grafana to main-playbook.yml and has a working prometheus deployment per
 the notes below. (Both now to aws_instance EC2)
 
-The grafana deployment on ansible has  been integrated with terraform and now deploys to EC2 aws_instance
+****NOTE: the ansible prometheus is manually deployed in this dev_terraform_FULL_ansible branch using:
+ansible-playbook -i aws_hosts --private-key /home/ubuntu/.ssh/mtckey playbooks/main-playbook.yml
+as this is development code. (granfana will be re-deployed as well in this playbook)
+
+The grafana deployment on ansible has  been integrated with terraform (Compute.tf) and now deploys to EC2 aws_instance
 
 The master will continue on the dev_terraform_FULL_ansible  and integrate the setup with Jenkins, pipelines, etc.....
 
