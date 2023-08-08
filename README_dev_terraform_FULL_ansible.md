@@ -1,13 +1,18 @@
-This is the master branch and has latest and complete development of the code for this project.
+This is the dev_terraform_FULL_ansible  branch 
 The development_terraform_ansible_intro branch terminates and is frozen after ansible basic playbook
 which deploys grafana to local Cloud9 EC2 instance.
 
-This master will continue on the development_terraform_ansible_intro and start with integrating the 
-basic ansible playbook with grafana installation with the terraform IaC that deploys EC2 aws_instances to EC2.
+After that, the dev_terraform_FULL_ansible branch terminates and is frozen after the prometheus deployment has been added to the existing
+grafana blocks in the yaml file. THe yaml file has been renamed from grafana to main-playbook.yml and has a working prometheus deployment per
+the notes below. (Both now to aws_instance EC2)
+
+The grafana deployment on ansible has  been integrated with terraform and now deploys to EC2 aws_instance
+
+The master will continue on the dev_terraform_FULL_ansible  and integrate the setup with Jenkins, pipelines, etc.....
 
 
 
-******Other master development code includes the following:***********
+******This branch (dev_terraform_FULL_ansible) includes the following which is not included in the first branch (development_terraform_ansible_intro)***********
 
 Basic issue encountered when creating a null_resource to make the call to the granfana.yml playbook (renamed main-playbook.yml 
 when prometheus blocks added)
@@ -26,14 +31,14 @@ Once this was added the null_resource below was executed fine and granfana is in
  prometheus on the remote EC2 node. This installation is more involved than granfana and requires
  several additional ansible blocks in the yaml file.
  
- CREATING another branch development_terraform_FULL_ansible here and freezing this branch.
+ CREATING another branch dev_terraform_FULL_ansible here and freezing this branch.
  The ansible playbook installs both grafana and prometheus.  
  The prometheus scrape is tested only locally on the EC2 node itself for now.
- In main we will develop this further using prometheus to fuller potential.  We will integrate this project
+ In master branch we will develop this further using prometheus to fuller potential.  We will integrate this project
  with jenkins....
  
  
- 
+ This branch (dev_terraform_FULL_ansible) will be frozen at this point.
 
 
 
