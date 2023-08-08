@@ -5,7 +5,9 @@ which deploys grafana to local Cloud9 EC2 instance.
 This master will continue on the development_terraform_ansible_intro and start with integrating the 
 basic ansible playbook with grafana installation with the terraform IaC that deploys EC2 aws_instances to EC2.
 
-******Other master development code includes the following:
+
+
+******Other master development code includes the following:***********
 
 Basic issue encountered when creating a null_resource to make the call to the granfana.yml playbook (renamed main-playbook.yml 
 when prometheus blocks added)
@@ -27,9 +29,15 @@ Once this was added the null_resource below was executed fine and granfana is in
  CREATING another branch development_terraform_FULL_ansible here and freezing this branch.
  The ansible playbook installs both grafana and prometheus.  
  The prometheus scrape is tested only locally on the EC2 node itself for now.
- In main we will develop this further using prometheus to fuller potential.
+ In main we will develop this further using prometheus to fuller potential.  We will integrate this project
+ with jenkins....
+ 
+ 
  
 
+
+
+==========================
 
 
 The information below is from the development_terraform_ansible_intro README.  All of the code
