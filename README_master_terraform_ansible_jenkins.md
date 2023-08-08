@@ -3,18 +3,39 @@ The development_terraform_ansible_intro branch terminates and is frozen after an
 which deploys grafana to local Cloud9 EC2 instance.
 
 This master will continue on the development_terraform_ansible_intro and start with integrating the 
-basic ansible playbook with the terraform IaC that deploys EC2 aws_instances to EC2.
+basic ansible playbook with grafana installation with the terraform IaC that deploys EC2 aws_instances to EC2.
 
 ******Other master development code includes the following:
 
+Basic issue encountered when creating a null_resource to make the call to the granfana.yml playbook (renamed main-playbook.yml 
+when prometheus blocks added)
 
+The issue is that the null_resource at the bottom of compute.tf, is run BEFORE all the 
+aws_instances or aws_instance is able to take connections. The EC2 instances have to be both 
+up and running and able to take connections for grafana ansible playbook to be executed.
+
+Introduced this line to the command below in compute.tf aws_instances block:
+command = "printf '\n${self.public_ip}' >> aws_hosts && aws ec2 wait instance-status-ok  --instance-ids ${self.id} --region us-west-1"
+(the second argument after the &&)
+Once this was added the null_resource below was executed fine and granfana is installed.
+ command = "ansible-playbook -i aws_hosts --key-file /home/ubuntu/.ssh/mtckey playbooks/grafana.yml"
+ 
+ Next coding involved scaffolding the main-playbook.yml (formerly granfana.yml) for installtion of 
+ prometheus on the remote EC2 node. This installation is more involved than granfana and requires
+ several additional ansible blocks in the yaml file.
+ 
+ CREATING another branch development_terraform_FULL_ansible here and freezing this branch.
+ The ansible playbook installs both grafana and prometheus.  
+ The prometheus scrape is tested only locally on the EC2 node itself for now.
+ In main we will develop this further using prometheus to fuller potential.
+ 
 
 
 
 The information below is from the development_terraform_ansible_intro README.  All of the code
 below is included in this master branch as well.  The file structure has been modified heavily and 
 the functionality of the development code below in this master branch will not work precisely the same,
-hence the need for branching. For baisic terraform IaC and basic ansibile use the development branch below
+hence the need for branching. For baisic terraform IaC and basic ansibile with grafana installation use the development branch below
 development_terraform_ansible_intro
 
 =====================================================================
