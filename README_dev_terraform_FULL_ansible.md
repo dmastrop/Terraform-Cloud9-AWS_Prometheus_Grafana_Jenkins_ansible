@@ -46,10 +46,11 @@ Once this was added the null_resource below was executed fine and granfana is in
 
 
 The information below is from the development_terraform_ansible_intro README.  All of the code
-below is included in this master branch as well.  The file structure has been modified heavily and 
-the functionality of the development code below in this master branch will not work precisely the same,
-hence the need for branching. For baisic terraform IaC and basic ansibile with grafana installation use the development branch below
-development_terraform_ansible_intro
+below is included in this branch  (dev_terraform_FULL_ansible_ and the master branch as well.  The file structure has been modified heavily and 
+the functionality of the development code below in this branch vs. the other branches awill not work precisely the same,
+hence the need for branching. For baisic terraform IaC and basic ansibile with grafana installation (local Cloud9) use the development branch below
+development_terraform_ansible_intro.  For ansible integration wth terraform EC2 instance for granfana and prometheus, use the dev_terraform_FULL_ansible
+branch.  For latest use the master branch.
 
 =====================================================================
 
