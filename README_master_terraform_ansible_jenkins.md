@@ -26,7 +26,7 @@ Once this was added the null_resource below was executed fine and granfana is in
  prometheus on the remote EC2 node. This installation is more involved than granfana and requires
  several additional ansible blocks in the yaml file.
  
- CREATING another branch development_terraform_FULL_ansible here and freezing this branch.
+ CREATING another branch dev_terraform_FULL_ansible here and freezing this branch.
  The ansible playbook installs both grafana and prometheus.  
  The prometheus scrape is tested only locally on the EC2 node itself for now.
  In main we will develop this further using prometheus to fuller potential.  We will integrate this project
