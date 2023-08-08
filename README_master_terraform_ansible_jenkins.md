@@ -1,13 +1,25 @@
 This is the master branch and has latest and complete development of the code for this project.
+
 The development_terraform_ansible_intro branch terminates and is frozen after ansible basic playbook
 which deploys grafana to local Cloud9 EC2 instance.
 
-This master will continue on the development_terraform_ansible_intro and start with integrating the 
-basic ansible playbook with grafana installation with the terraform IaC that deploys EC2 aws_instances to EC2.
+The next branch dev_terraform_FULL_ansible terminates and is frozen with ansible EC2 prometheous and granfana deployments
+
+
+The branching is 
+development_terraform_ansible_intro: IaC terraform with basic ansible playbook granfana.yml for grafana deployment
+
+dev_terraform_FULL_ansible: builds on development_terraform_ansible_intro with the Iac terraform and with ansible playbook depoloyments to 
+aws_instances (EC2) for granfana and prometheous.
+
+master branch has all of the above and latest development code
+
+
+This master will continue off of the dev_terraform_FULL_ansible and integrate all of the above with jenkins and pipelines, etc......
 
 
 
-******Other master development code includes the following:***********
+******In additoin to development_terraform_ansible_intro base, Other master development code includes the following:***********
 
 Basic issue encountered when creating a null_resource to make the call to the granfana.yml playbook (renamed main-playbook.yml 
 when prometheus blocks added)
@@ -26,7 +38,7 @@ Once this was added the null_resource below was executed fine and granfana is in
  prometheus on the remote EC2 node. This installation is more involved than granfana and requires
  several additional ansible blocks in the yaml file.
  
- CREATING another branch dev_terraform_FULL_ansible here and freezing this branch.
+ CREATING another branch dev_terraform_FULL_ansible here and freezing the branch.
  The ansible playbook installs both grafana and prometheus.  
  The prometheus scrape is tested only locally on the EC2 node itself for now.
  In main we will develop this further using prometheus to fuller potential.  We will integrate this project
