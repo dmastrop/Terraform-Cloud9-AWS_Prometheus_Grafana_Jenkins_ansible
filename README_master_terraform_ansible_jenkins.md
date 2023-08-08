@@ -4,6 +4,12 @@ The development_terraform_ansible_intro branch terminates and is frozen after an
 which deploys grafana to local Cloud9 EC2 instance.
 
 The next branch dev_terraform_FULL_ansible terminates and is frozen with ansible EC2 prometheous and granfana deployments
+NOTE: the ansible prometheus is manually deployed in this dev_terraform_FULL_ansible branch using:
+ansible-playbook -i aws_hosts --private-key /home/ubuntu/.ssh/mtckey playbooks/main-playbook.yml
+as this is development code.
+
+
+Will add the call from compute.tf to main-playbook.yml in master branch.
 
 
 The branching is 
