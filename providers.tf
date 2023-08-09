@@ -12,4 +12,6 @@ terraform {
 # my cloud9 is on us-west-1 as well (EC instance)
 provider "aws" {
   region = "us-west-1"
+  # publish aws cloud9 ephemeral credentials to terraform
+  shared_credentials_file="/home/ubuntu/.aws/credentials"
 }
