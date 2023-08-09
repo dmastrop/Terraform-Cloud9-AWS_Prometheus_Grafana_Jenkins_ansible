@@ -192,7 +192,9 @@ resource "null_resource" "grafana_install" {
   # note that this is a loal provisioner, so it is run locally and ansible-playbook is executed on aws_hosts via ssh (private key)
   depends_on = [aws_instance.mtc_main]
   provisioner "local-exec" {
-    command = "ansible-playbook -i aws_hosts --key-file /home/ubuntu/.ssh/mtckey playbooks/grafana.yml"
+    # update this to main-playbook.yml 
+    command = "ansible-playbook -i aws_hosts --key-file /home/ubuntu/.ssh/mtckey playbooks/main-playbook.yml"
+    #command = "ansible-playbook -i aws_hosts --key-file /home/ubuntu/.ssh/mtckey playbooks/grafana.yml"
     # ansible-playbook is run locally on Cloud9 but uses ssh to aws_hosts to deploy the ansible playbook on the remote aws_hosts
   }
 } 
