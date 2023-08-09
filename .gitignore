@@ -15,6 +15,7 @@ aws_hosts
 **/.terraform/*
 
 # .tfstate files
+# we don't have these right now because terraform state is backed up to terraform cloud
 *.tfstate
 *.tfstate.*
 
