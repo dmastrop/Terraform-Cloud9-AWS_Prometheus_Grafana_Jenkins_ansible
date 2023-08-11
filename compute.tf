@@ -192,14 +192,19 @@ resource "null_resource" "grafana_install" {
   # note that this is a loal provisioner, so it is run locally and ansible-playbook is executed on aws_hosts via ssh (private key)
   depends_on = [aws_instance.mtc_main]
   provisioner "local-exec" {
-    command = "ansible-playbook -i aws_hosts --key-file /home/ubuntu/.ssh/mtckey playbooks/grafana.yml"
+    #command = "ansible-playbook -i aws_hosts --key-file /home/ubuntu/.ssh/mtckey playbooks/grafana.yml"
     # ansible-playbook is run locally on Cloud9 but uses ssh to aws_hosts to deploy the ansible playbook on the remote aws_hosts
+    command = "ansible-playbook -i aws_hosts --key-file /home/ubuntu/.ssh/mtckey playbooks/main-playbook.yml"
   }
 } 
 
 
 
 ## not sure when he added this in????
+# added code for prometheus as well. See below
 output "instance_ips_for_grafana_access" {
   value = { for i in aws_instance.mtc_main[*] : i.tags.Name => "${i.public_ip}:3000" }
+}
+output "instance_ips_for_prometheus_access" {
+  value = { for i in aws_instance.mtc_main[*] : i.tags.Name => "${i.public_ip}:9090" }
 }
