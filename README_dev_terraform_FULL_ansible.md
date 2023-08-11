@@ -12,6 +12,17 @@ as this is development code. (granfana will be re-deployed as well in this playb
 
 The grafana deployment on ansible has  been integrated with terraform (Compute.tf) and now deploys to EC2 aws_instance
 
+Added prometheus config to the compute.tf by using main-playbook.yml in place of grafana.yml
+Add to the compute.tf and replace Grafana.yml playbook with main-playbook.yml so that prometheous is automatically deployed.
+Otherwise have to manually add Prometheus with the command below.
+
+ansible-playbook -i aws_hosts --private-key /home/ubuntu/.ssh/mtckey playbooks/main-playbook.yml
+
+
+url for prometheous is aws_instance_ip:9090
+url for Grafana is aws_instance_ip:3000
+
+
 The master will continue on the dev_terraform_FULL_ansible  and integrate the setup with Jenkins, pipelines, etc.....
 
 
@@ -41,7 +52,15 @@ Once this was added the null_resource below was executed fine and granfana is in
  In master branch we will develop this further using prometheus to fuller potential.  We will integrate this project
  with jenkins....
  
- 
+ Add to the compute.tf and replace Grafana.yml playbook with main-playbook.yml so that prometheous is automatically deployed.
+Otherwise have to manually add Prometheus with the command below.
+
+ansible-playbook -i aws_hosts --private-key /home/ubuntu/.ssh/mtckey playbooks/main-playbook.yml
+
+
+url for prometheous is aws_instance_ip:9090
+url for Grafana is aws_instance_ip:3000
+
  This branch (dev_terraform_FULL_ansible) will be frozen at this point.
 
 
