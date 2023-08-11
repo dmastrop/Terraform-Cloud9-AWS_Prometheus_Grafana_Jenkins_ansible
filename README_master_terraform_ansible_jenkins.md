@@ -6,10 +6,10 @@ which deploys grafana to local Cloud9 EC2 instance.
 The next branch dev_terraform_FULL_ansible terminates and is frozen with ansible EC2 prometheous and granfana deployments
 NOTE: the ansible prometheus is manually deployed in this dev_terraform_FULL_ansible branch using:
 ansible-playbook -i aws_hosts --private-key /home/ubuntu/.ssh/mtckey playbooks/main-playbook.yml
-as this is development code.
+as this is development code.  Added automatic deployment of prometheous to compute.tf via main-playbook.yml invocation.
 
 
-Will add the call from compute.tf to main-playbook.yml in master branch.
+Will also add the call from compute.tf to main-playbook.yml in master branch.
 
 
 The branching is 
@@ -23,9 +23,26 @@ master branch has all of the above and latest development code
 
 This master will continue off of the dev_terraform_FULL_ansible and integrate all of the above with jenkins and pipelines, etc......
 
+*******New code in master branch:
+- jenkins-playbook.yml is outside of terraform state (not added to compute.tf). This deploys jenkins to the Cloud9 instance
+- integration of github and terraform with jenkins 
+- Github API app id and credentials added to Jenkins so that Jenkins has access to the github repo for this project
+- AWS credentials to jenkins via terraform providers.tf file:  shared_credentials_files=["/home/ubuntu/.aws/credentials"]
+- Terraform cloud state access to jenkins via /home/ubuntu/.terrafrom.d/credentials.tfrc.json copied into secret file on Jenkins 
+Web console import
+- Jenkins pipeline: First add the github repo and the identification material for the github API app (id, etc)
+- This secret file will be used on a pipeline when introducing terraform commands so that Jenkins has access to update the terraform
+cloud state. This is done in the Build environment section under the Bindings.
+-
 
 
-******In additoin to development_terraform_ansible_intro base, Other master development code includes the following:***********
+
+
+
+
+
+
+******In additoin to development_terraform_ansible_intro base, Other  development code dev_terraform_FULL_ansible includes the following:***********
 
 Basic issue encountered when creating a null_resource to make the call to the granfana.yml playbook (renamed main-playbook.yml 
 when prometheus blocks added)
