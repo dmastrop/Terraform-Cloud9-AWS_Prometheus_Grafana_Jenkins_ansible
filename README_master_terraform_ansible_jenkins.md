@@ -30,10 +30,14 @@ This master will continue off of the dev_terraform_FULL_ansible and integrate al
 - AWS credentials to jenkins via terraform providers.tf file:  shared_credentials_files=["/home/ubuntu/.aws/credentials"]
 - Terraform cloud state access to jenkins via /home/ubuntu/.terrafrom.d/credentials.tfrc.json copied into secret file on Jenkins 
 Web console import
-- Jenkins pipeline: First add the github repo and the identification material for the github API app (id, etc)
+- Jenkins pipeline: 
+- First add the github repo (https link) and the identification material for the github API app (id, etc)
+- add relevant Build steps. Use execute shell.
 - This secret file will be used on a pipeline when introducing terraform commands so that Jenkins has access to update the terraform
 cloud state. This is done in the Build environment section under the Bindings.
--
+- Comment out the null_resource in compute.tf. We are no longer deploying via ansible through terraform. We will deploy the playbook 
+via Jenkins.
+
 
 
 
