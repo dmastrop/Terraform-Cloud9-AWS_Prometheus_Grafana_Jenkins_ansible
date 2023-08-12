@@ -209,3 +209,7 @@ resource "aws_instance" "mtc_main" {
 output "instance_ips_for_grafana_access" {
   value = { for i in aws_instance.mtc_main[*] : i.tags.Name => "${i.public_ip}:3000" }
 }
+
+output "instance_ips_for_prometheus_access" {
+  value = { for i in aws_instance.mtc_main[*] : i.tags.Name => "${i.public_ip}:9090" }
+}

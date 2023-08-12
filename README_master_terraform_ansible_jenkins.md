@@ -37,7 +37,11 @@ Web console import
 cloud state. This is done in the Build environment section under the Bindings.
 - Comment out the null_resource in compute.tf. We are no longer deploying via ansible through terraform. We will deploy the playbook 
 via Jenkins.
-
+- Add the AWS_SHARED_CREDENTIALS_FILE to the terraform apply third build step.  This step has the terraform apply 
+- Next, integrate the ansible null_resource into Jenkins by adding another build step to invoke an ansible playbook
+- Very similar to running ansible-playbook -i aws_hosts --private-key /home/ubuntu/.ssh/mtckey playbooks/main-playbook.yml in the terminal
+- Thus Jenkins must have the private ssh key and be told where the playbook is and where the inventory is (aws_hosts file)
+- 
 
 
 
