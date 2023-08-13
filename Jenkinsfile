@@ -30,9 +30,21 @@ pipeline {
         // note that each stage is isolated in terms of ENV variables.
         // exports must be added to each stage.
         
-        sh ' terraform plan -no-color'
+        sh 'terraform plan -no-color'
       }    
     }
+    
+    stage('Apply') {
+      steps {
+        sh 'terraform apply -auto-approve -no-color"
+      }
+    }
+    
+    stage('Destroy') {
+      steps {
+        sh 'terraform destroy -auto-approve -no-color"
+      }
+    }        
   }   
 }  
 // pipeline typically ends with 4 brackets......
