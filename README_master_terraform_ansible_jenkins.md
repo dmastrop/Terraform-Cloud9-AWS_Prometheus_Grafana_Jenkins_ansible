@@ -62,6 +62,10 @@ aws ec2 wait instance-status-ok  --instance-ids ${self.id} --region us-west-1" b
 -Add Apply and Destroy stages to the pipeline and run this.
 -Add the ec2 wait outside of terraform compute.tf in the Jenkinsfile and add the AWS_SHARED_CREDENTIALS_FILE ENV var 
 -The EC2 wait stage will be added in between the Apply and Destroy.
+-Next integrate the Ansible stage into the Jenkinsfile.  Use the ansiblePlaybook plugin
+https://plugins.jenkins.io/ansible/
+ansiblePlaybook(credentialsID: 'EC2-SSH-key', inventory: 'aws_hosts', playbook: 'playbooks/main-playbook.yml')
+-
 
 
 

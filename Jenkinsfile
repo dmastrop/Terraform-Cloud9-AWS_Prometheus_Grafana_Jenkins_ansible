@@ -56,6 +56,15 @@ pipeline {
       }
     }
     
+    stage('Ansbile') {
+      steps {
+        ansiblePlaybook(credentialsID: 'EC2-SSH-key', inventory: 'aws_hosts', playbook: 'playbooks/main-playbook.yml')
+        // ansiblePlaybook(credentialsId: 'private_key', inventory: 'inventories/a/hosts', playbook: 'my_playbook.yml'
+        // the private_key name is the name assigned to teh EC2 ssh key in Jenkins not the name in the Cloud9 directory
+        // this should bootstrap EC2 instance with grafana and prometheus
+      }
+    }
+    
     stage('Destroy') {
       steps {
         sh 'terraform destroy -auto-approve -no-color'
