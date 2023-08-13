@@ -53,6 +53,11 @@ pipeline {
       ok "Apply this plan."
       // can either apply the plan or abort
       }
+      
+      // can't have a stage without any steps so insert the step below
+      steps {
+        echo 'Apply Accepted'
+      }
     }
     
     stage('Apply') {
