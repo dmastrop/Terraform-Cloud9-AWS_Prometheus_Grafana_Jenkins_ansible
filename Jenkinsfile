@@ -46,6 +46,15 @@ pipeline {
       }    
     }
     
+    stage('Validate Apply') {
+      input {
+      // instead of steps we will use input
+      message "Do you want to apply this terraform plan?"
+      ok "Apply this plan."
+      // can either apply the plan or abort
+      }
+    }
+    
     stage('Apply') {
       steps {
         sh 'terraform apply -auto-approve -no-color'
