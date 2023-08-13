@@ -30,18 +30,28 @@ This master will continue off of the dev_terraform_FULL_ansible and integrate al
 - AWS credentials to jenkins via terraform providers.tf file:  shared_credentials_files=["/home/ubuntu/.aws/credentials"]
 - Terraform cloud state access to jenkins via /home/ubuntu/.terrafrom.d/credentials.tfrc.json copied into secret file on Jenkins 
 Web console import
-- Jenkins pipeline: 
+- ******Jenkins pipeline via Jenkins WEB UI:********* 
 - First add the github repo (https link) and the identification material for the github API app (id, etc)
 - add relevant Build steps. Use execute shell.
 - This secret file will be used on a pipeline when introducing terraform commands so that Jenkins has access to update the terraform
 cloud state. This is done in the Build environment section under the Bindings.
 - Comment out the null_resource in compute.tf. We are no longer deploying via ansible through terraform. We will deploy the playbook 
 via Jenkins.
+_ NOTE: should not run master branch from Cloud9 terminal main workspace. If required to run from Cloud9 terminal run from 
+/var/lib/jenkins/workspace directory. This is particularly useful if need to terrform destroy the setup during troublehsooting.
 - Add the AWS_SHARED_CREDENTIALS_FILE to the terraform apply third build step.  This step has the terraform apply 
 - Next, integrate the ansible null_resource into Jenkins by adding another build step to invoke an ansible playbook
 - Very similar to running ansible-playbook -i aws_hosts --private-key /home/ubuntu/.ssh/mtckey playbooks/main-playbook.yml in the terminal
 - Thus Jenkins must have the private ssh key and be told where the playbook is and where the inventory is (aws_hosts file)
+- This WEB UI run of Jenkins is successful.
 - 
+-*****Now adapt the above to a Jenkinsfile********
+-Before running Jenkinsfile with terraform commands need to ensure that credentials are in place
+-Also need to ensure that webhook URL is specified in the Developer settings of Github and repository settings also have the webhook
+URL, so that Github can connect to Jenkins.  The webhook URL is http://54.215.200.20:8080/github-webhook in Developer settings
+and http://54.215.200.20:8080/github-webhook/ (note trailing slash) in the repository settings.
+-There is a problem with github connecting to the Jenkins webhook URL. The access list rule must be added in AWS EC2 to
+allow the traffic through. The Cloud9/Jenkins EC2 instance had been locked down for only PC to EC2 communication prior to this.
 
 
 
@@ -50,7 +60,8 @@ via Jenkins.
 
 
 
-******In additoin to development_terraform_ansible_intro base, Other  development code dev_terraform_FULL_ansible includes the following:***********
+
+******In addition to development_terraform_ansible_intro base, Other  development code dev_terraform_FULL_ansible includes the following:***********
 
 Basic issue encountered when creating a null_resource to make the call to the granfana.yml playbook (renamed main-playbook.yml 
 when prometheus blocks added)
