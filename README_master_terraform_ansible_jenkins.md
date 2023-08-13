@@ -30,7 +30,7 @@ This master will continue off of the dev_terraform_FULL_ansible and integrate al
 - AWS credentials to jenkins via terraform providers.tf file:  shared_credentials_files=["/home/ubuntu/.aws/credentials"]
 - Terraform cloud state access to jenkins via /home/ubuntu/.terrafrom.d/credentials.tfrc.json copied into secret file on Jenkins 
 Web console import
-- ******Jenkins pipeline via Jenkins WEB UI:********* 
+- ******Jenkins pipeline via Jenkins WEB UI (called a freestyle project in Jenkins template):********* 
 - First add the github repo (https link) and the identification material for the github API app (id, etc)
 - add relevant Build steps. Use execute shell.
 - This secret file will be used on a pipeline when introducing terraform commands so that Jenkins has access to update the terraform
@@ -45,13 +45,17 @@ _ NOTE: should not run master branch from Cloud9 terminal main workspace. If req
 - Thus Jenkins must have the private ssh key and be told where the playbook is and where the inventory is (aws_hosts file)
 - This WEB UI run of Jenkins is successful.
 - 
--*****Now adapt the above to a Jenkinsfile********
+-*****Now adapt the above to a Jenkinsfile (using a Multibranch pipeline template in Jenkins)********
 -Before running Jenkinsfile with terraform commands need to ensure that credentials are in place
 -Also need to ensure that webhook URL is specified in the Developer settings of Github and repository settings also have the webhook
 URL, so that Github can connect to Jenkins.  The webhook URL is http://54.215.200.20:8080/github-webhook in Developer settings
 and http://54.215.200.20:8080/github-webhook/ (note trailing slash) in the repository settings.
 -There is a problem with github connecting to the Jenkins webhook URL. The access list rule must be added in AWS EC2 to
 allow the traffic through. The Cloud9/Jenkins EC2 instance had been locked down for only PC to EC2 communication prior to this.
+- Next, to run terraform basic commands need to add the TF_CLI_CONFIG_FILE ENV variable to the Jenknsfile
+Use the credentials function to reference this token that has already been added to Jenkins configuration as
+TF_CLI_CONFIG_FILE = credentials('terraform-cloud-credentials-for-jenkins')
+-Add the TF_IN_AUTOMATION ENV variable as well to the top of the pipeline.
 
 
 
