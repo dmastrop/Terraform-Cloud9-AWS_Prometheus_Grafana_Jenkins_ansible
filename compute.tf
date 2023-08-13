@@ -127,7 +127,10 @@ resource "aws_instance" "mtc_main" {
     # add the following to the command below: 
     # use self.id to reference the paricular instance-id. This will prevent null_resource granfana install below from running
     # until the EC2 aws_instances are all up and running.
-    command = "printf '\n${self.public_ip}' >> aws_hosts && aws ec2 wait instance-status-ok  --instance-ids ${self.id} --region us-west-1"
+    
+    ##command = "printf '\n${self.public_ip}' >> aws_hosts && aws ec2 wait instance-status-ok  --instance-ids ${self.id} --region us-west-1"
+    # temporarily remove the aws ec2 wait until we get credentials in the Jenkinsfile.
+    command = "printf '\n${self.public_ip}' >> aws_hosts"
   }
 
   # https://developer.hashicorp.com/terraform/language/resources/provisioners/syntax
