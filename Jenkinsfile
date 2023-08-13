@@ -22,7 +22,7 @@ pipeline {
     }
   }   
 }  
-// pipeline typically ends with 4 brackets...
+// pipeline typically ends with 4 brackets....
 
       
   
