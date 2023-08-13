@@ -64,7 +64,7 @@ aws ec2 wait instance-status-ok  --instance-ids ${self.id} --region us-west-1" b
 -The EC2 wait stage will be added in between the Apply and Destroy.
 -Next integrate the Ansible stage into the Jenkinsfile.  Use the ansiblePlaybook plugin
 https://plugins.jenkins.io/ansible/
-ansiblePlaybook(credentialsID: 'EC2-SSH-key', inventory: 'aws_hosts', playbook: 'playbooks/main-playbook.yml')
+ansiblePlaybook(credentialsId: 'EC2-SSH-key', inventory: 'aws_hosts', playbook: 'playbooks/main-playbook.yml')
 -
 
 
