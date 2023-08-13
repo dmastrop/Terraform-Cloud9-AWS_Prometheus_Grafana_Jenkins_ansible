@@ -54,7 +54,7 @@ and http://54.215.200.20:8080/github-webhook/ (note trailing slash) in the repos
 allow the traffic through. The Cloud9/Jenkins EC2 instance had been locked down for only PC to EC2 communication prior to this.
 - Next, to run terraform basic commands need to add the TF_CLI_CONFIG_FILE ENV variable to the Jenknsfile
 Use the credentials function to reference this token that has already been added to Jenkins configuration as
-TF_CLI_CONFIG_FILE = credentials('terraform-cloud-credentials-for-jenkins')
+TF_CLI_CONFIG_FILE = credentials('terrform-cloud-credentials-for-jenkins').  NOTE terrform is misspelled here.
 -Add the TF_IN_AUTOMATION ENV variable as well to the top of the pipeline.
 
 
