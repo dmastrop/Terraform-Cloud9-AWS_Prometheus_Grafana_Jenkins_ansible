@@ -1,6 +1,10 @@
 pipeline {
+// https://www.jenkins.io/doc/book/pipeline/jenkinsfile/
+
   agent any
+  
   // insert ENV vars here so that they are global to the entire Jenkinsfile rather than specific to a stage.
+  // https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#setting-environment-variables
   environment {
     TF_IN_AUTOMATION= 'true'
     
@@ -17,6 +21,7 @@ pipeline {
     // otherwise the installation of these apps will fail!  Addd this stage between the Apply and the Destroy. See below....
     
   }
+  
   stages {
     stage('Init') {
       steps {
@@ -62,6 +67,7 @@ pipeline {
         // ansiblePlaybook(credentialsId: 'private_key', inventory: 'inventories/a/hosts', playbook: 'my_playbook.yml'
         // the private_key name is the name assigned to teh EC2 ssh key in Jenkins not the name in the Cloud9 directory
         // this should bootstrap EC2 instance with grafana and prometheus
+        // https://plugins.jenkins.io/ansible/
       }
     }
     
