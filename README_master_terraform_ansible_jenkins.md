@@ -56,6 +56,13 @@ allow the traffic through. The Cloud9/Jenkins EC2 instance had been locked down 
 Use the credentials function to reference this token that has already been added to Jenkins configuration as
 TF_CLI_CONFIG_FILE = credentials('terrform-cloud-credentials-for-jenkins').  NOTE terrform is misspelled here.
 -Add the TF_IN_AUTOMATION ENV variable as well to the top of the pipeline.
+-Run the pipleline with a terraform plan
+-comment out aws EC2 wait in: command = "printf '\n${self.public_ip}' >> aws_hosts && 
+aws ec2 wait instance-status-ok  --instance-ids ${self.id} --region us-west-1" because have not added AWS credentials yet
+-Add Apply and Destroy stages to the pipeline and run this.
+-Add the ec2 wait outside of terraform compute.tf in the Jenkinsfile and add the AWS_SHARED_CREDENTIALS_FILE ENV var 
+-The EC2 wait stage will be added in between the Apply and Destroy.
+
 
 
 
