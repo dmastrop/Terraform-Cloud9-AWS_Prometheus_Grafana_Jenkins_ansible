@@ -1,5 +1,5 @@
 pipeline {
-// https://www.jenkins.io/doc/book/pipeline/jenkinsfile/
+//https://www.jenkins.io/doc/book/pipeline/jenkinsfile/
 
   agent any
   
@@ -121,18 +121,6 @@ pipeline {
       }
     }        
   } 
-  
-  
-  post {
-  // https://www.jenkins.io/doc/pipeline/tour/post/
-    success {
-      echo 'Success!!!!!!!'
-    }
-    failure {
-      sh 'terraform destroy -auto-approve -no-color'
-    }
-  }
-
 } 
 // pipeline typically ends with 4 brackets......
 
