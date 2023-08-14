@@ -75,6 +75,20 @@ pipeline {
       }
     }
     
+    stage('Validate Ansible') {
+      input {
+      // instead of steps we will use input
+      message "Do you want to run ansible playbook?"
+      ok "Run ansible playbook on this terraform infra."
+      // can either apply the plan or abort
+      }
+      
+      // can't have a stage without any steps so insert the step below
+      steps {
+        echo 'Ansible deployment accepted'
+      }
+    }
+    
     stage('Ansbile') {
       steps {
         ansiblePlaybook(credentialsId: 'EC2-SSH-key', inventory: 'aws_hosts', playbook: 'playbooks/main-playbook.yml')
@@ -82,6 +96,20 @@ pipeline {
         // the private_key name is the name assigned to teh EC2 ssh key in Jenkins not the name in the Cloud9 directory
         // this should bootstrap EC2 instance with grafana and prometheus
         // https://plugins.jenkins.io/ansible/
+      }
+    }
+    
+    stage('Validate Destroy') {
+      input {
+      // instead of steps we will use input
+      message "Do you want to destroy this terraform infra?"
+      ok "Destroy this terraform infra."
+      // can either apply the plan or abort
+      }
+      
+      // can't have a stage without any steps so insert the step below
+      steps {
+        echo 'Destroy Accepted'
       }
     }
     
