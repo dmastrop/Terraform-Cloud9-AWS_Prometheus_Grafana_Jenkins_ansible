@@ -1,6 +1,6 @@
 pipeline {
 // https://www.jenkins.io/doc/book/pipeline/jenkinsfile/
-// comment
+// comment merge
 
   agent any
   
@@ -64,6 +64,8 @@ pipeline {
     stage('Apply') {
       steps {
         sh 'terraform apply -auto-approve -no-color'
+        // intentional failure:
+        // sh 'terraform apply -auto-approve -no-color -var-file="test.tfvars"'
       }
     }
     
@@ -90,7 +92,7 @@ pipeline {
       }
     }
     
-    stage('Ansbile') {
+    stage('Ansible') {
       steps {
         ansiblePlaybook(credentialsId: 'EC2-SSH-key', inventory: 'aws_hosts', playbook: 'playbooks/main-playbook.yml')
         // ansiblePlaybook(credentialsId: 'private_key', inventory: 'inventories/a/hosts', playbook: 'my_playbook.yml'
@@ -119,8 +121,8 @@ pipeline {
         sh 'terraform destroy -auto-approve -no-color'
       }
     }        
-  }   
-}  
+  } 
+} 
 // pipeline typically ends with 4 brackets......
 
       
