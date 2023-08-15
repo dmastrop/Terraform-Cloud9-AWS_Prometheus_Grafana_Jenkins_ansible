@@ -130,7 +130,7 @@ pipeline {
       echo 'Success!!!!!!!!!'
     }
     failure {
-      sh 'terraform destory -auto-approve -no-color'
+      sh 'terraform destroy -auto-approve -no-color'
     }
   }
 } 
