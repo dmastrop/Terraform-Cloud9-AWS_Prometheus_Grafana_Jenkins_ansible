@@ -63,9 +63,11 @@ pipeline {
     
     stage('Apply') {
       steps {
-        //sh 'terraform apply -auto-approve -no-color'
-        // intentional failure to test out post function below
-        sh 'terraform apply -auto-approve -no-color -var-file="test5.tfvars"'
+        sh 'terraform apply -auto-approve -no-color'
+        // intentional failure (below) to test out post function below
+        // Note a comment change does not institue a trigger for Jenkins to rebuild even if pushed to repo
+        // this is unlike Github actions scripting.
+        //sh 'terraform apply -auto-approve -no-color -var-file="test5.tfvars"'
       }
     }
     
