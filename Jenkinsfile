@@ -65,7 +65,7 @@ pipeline {
       steps {
         //sh 'terraform apply -auto-approve -no-color'
         // intentional failure to test out post function below
-        sh 'terraform apply -auto-approve -no-color -var-file="test.tfvars"'
+        sh 'terraform apply -auto-approve -no-color -var-file="test1.tfvars"'
       }
     }
     
@@ -125,7 +125,7 @@ pipeline {
   
   post {
   // https://www.jenkins.io/doc/pipeline/tour/post/
-  // test123
+  // test1234
     success {
       echo 'Success!!!!!!!!!'
     }
