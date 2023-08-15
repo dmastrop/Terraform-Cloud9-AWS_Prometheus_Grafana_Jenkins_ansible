@@ -129,7 +129,7 @@ pipeline {
   // https://www.jenkins.io/doc/pipeline/tour/post/
   // test1234
     success {
-      echo 'Success edit1'
+      echo 'Success edit2'
     }
     failure {
       sh 'terraform destroy -auto-approve -no-color'
