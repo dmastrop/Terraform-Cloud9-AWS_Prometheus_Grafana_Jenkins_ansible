@@ -65,7 +65,7 @@ pipeline {
       steps {
         //sh 'terraform apply -auto-approve -no-color'
         // intentional failure to test out post function below
-        sh 'terraform apply -auto-approve -no-color -var-file="test1.tfvars"'
+        sh 'terraform apply -auto-approve -no-color -var-file="test2.tfvars"'
       }
     }
     
