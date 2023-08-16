@@ -171,17 +171,21 @@ pipeline {
   
   post {
   // https://www.jenkins.io/doc/pipeline/tour/post/
-  // test1234
     success {
       echo 'Success edit4'
     }
+    
     failure {
       //sh 'terraform destroy -auto-approve -no-color'
       
       sh 'terraform destroy -auto-approve -no-color -var-file="$BRANCH_NAME.tfvars"'
       // this will run the Post destroy with the BRANCH_NAME.tfvars file. For development this is Jenkins_development.tfvars
       // and for production this is master.tfvars.  This is what we did for the destory, apply and plan above as well.
-      
+    }
+    
+    abort {
+    // https://www.jenkins.io/doc/book/glossary/#build-status
+      sh 'terraform destroy -auto-approve -no-color -var-file="$BRANCH_NAME.tfvars"'
     }
   }
 } 
