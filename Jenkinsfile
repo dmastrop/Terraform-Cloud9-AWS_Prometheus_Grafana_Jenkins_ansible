@@ -62,6 +62,7 @@ pipeline {
     stage('Validate Apply') {
     
       when {
+      // https://www.jenkins.io/doc/book/pipeline/syntax/#when
       // only validate apply when branch is dev and make sure you evaluate before the input below so that we can abort it
       // if required. In dev branch we want the input, and in master branch we do not want the input.
       // When branch is development, the input will be hit. 
@@ -108,9 +109,10 @@ pipeline {
     stage('Validate Ansible') {
     
       when {
-        // only validate ansible when branch is dev and make sure you evaluate before the input below so that we can abort it
-        // if required. In dev branch we want the input, and in master branch we do not want the input.
-        // When branch is development, the input will be hit. 
+      // https://www.jenkins.io/doc/book/pipeline/syntax/#when
+      // only validate ansible when branch is dev and make sure you evaluate before the input below so that we can abort it
+      // if required. In dev branch we want the input, and in master branch we do not want the input.
+      // When branch is development, the input will be hit. 
         beforeInput true
         branch "Jenkins_development"
       }
