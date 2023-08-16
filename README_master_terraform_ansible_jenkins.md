@@ -23,13 +23,14 @@ master branch has all of the above and latest development code
 
 This master will continue off of the dev_terraform_FULL_ansible and integrate all of the above with jenkins and pipelines, etc......
 
-*******New code in master branch:
+*******New code in master branch:*******
 - jenkins-playbook.yml is outside of terraform state (not added to compute.tf). This deploys jenkins to the Cloud9 instance
 - integration of github and terraform with jenkins 
 - Github API app id and credentials added to Jenkins so that Jenkins has access to the github repo for this project
 - AWS credentials to jenkins via terraform providers.tf file:  shared_credentials_files=["/home/ubuntu/.aws/credentials"]
 - Terraform cloud state access to jenkins via /home/ubuntu/.terrafrom.d/credentials.tfrc.json copied into secret file on Jenkins 
 Web console import
+
 - ******Jenkins pipeline via Jenkins WEB UI (called a freestyle project in Jenkins template):********* 
 - First add the github repo (https link) and the identification material for the github API app (id, etc)
 - add relevant Build steps. Use execute shell.
@@ -44,32 +45,37 @@ _ NOTE: should not run master branch from Cloud9 terminal main workspace. If req
 - Very similar to running ansible-playbook -i aws_hosts --private-key /home/ubuntu/.ssh/mtckey playbooks/main-playbook.yml in the terminal
 - Thus Jenkins must have the private ssh key and be told where the playbook is and where the inventory is (aws_hosts file)
 - This WEB UI run of Jenkins is successful.
-- 
+
+
 -*****Now adapt the above to a Jenkinsfile (using a Multibranch pipeline template in Jenkins)********
--Before running Jenkinsfile with terraform commands need to ensure that credentials are in place
--Also need to ensure that webhook URL is specified in the Developer settings of Github and repository settings also have the webhook
+- Before running Jenkinsfile with terraform commands need to ensure that credentials are in place
+- Also need to ensure that webhook URL is specified in the Developer settings of Github and repository settings also have the webhook
 URL, so that Github can connect to Jenkins.  The webhook URL is http://54.215.200.20:8080/github-webhook in Developer settings
 and http://54.215.200.20:8080/github-webhook/ (note trailing slash) in the repository settings.
--There is a problem with github connecting to the Jenkins webhook URL. The access list rule must be added in AWS EC2 to
+- There is a problem with github connecting to the Jenkins webhook URL. The access list rule must be added in AWS EC2 to
 allow the traffic through. The Cloud9/Jenkins EC2 instance had been locked down for only PC to EC2 communication prior to this.
 - Next, to run terraform basic commands need to add the TF_CLI_CONFIG_FILE ENV variable to the Jenknsfile
 Use the credentials function to reference this token that has already been added to Jenkins configuration as
 TF_CLI_CONFIG_FILE = credentials('terrform-cloud-credentials-for-jenkins').  NOTE terrform is misspelled here.
--Add the TF_IN_AUTOMATION ENV variable as well to the top of the pipeline.
--Run the pipleline with a terraform plan
--comment out aws EC2 wait in: command = "printf '\n${self.public_ip}' >> aws_hosts && 
+- Add the TF_IN_AUTOMATION ENV variable as well to the top of the pipeline.
+- Run the pipleline with a terraform plan
+- comment out aws EC2 wait in: command = "printf '\n${self.public_ip}' >> aws_hosts && 
 aws ec2 wait instance-status-ok  --instance-ids ${self.id} --region us-west-1" because have not added AWS credentials yet
--Add Apply and Destroy stages to the pipeline and run this.
--Add the ec2 wait outside of terraform compute.tf in the Jenkinsfile and add the AWS_SHARED_CREDENTIALS_FILE ENV var 
--The EC2 wait stage will be added in between the Apply and Destroy.
--Next integrate the Ansible stage into the Jenkinsfile.  Use the ansiblePlaybook plugin
+- Add Apply and Destroy stages to the pipeline and run this.
+- Add the ec2 wait outside of terraform compute.tf in the Jenkinsfile and add the AWS_SHARED_CREDENTIALS_FILE ENV var 
+- The EC2 wait stage will be added in between the Apply and Destroy.
+- Next integrate the Ansible stage into the Jenkinsfile.  Use the ansiblePlaybook plugin
 https://plugins.jenkins.io/ansible/
 ansiblePlaybook(credentialsId: 'EC2-SSH-key', inventory: 'aws_hosts', playbook: 'playbooks/main-playbook.yml')
--Add a Destroy stage and add Validate Apply, Validate Ansible and Validate Destroy stages to pause the script for user Abort
+- Add a Destroy stage and add Validate Apply, Validate Ansible and Validate Destroy stages to pause the script for user Abort
 or Proceed.
--Add a Post section to Jenkinsfile for destroy if there is an outright Jenkins script failure in Apply, etc.... This way
+- Add a Post section to Jenkinsfile for destroy if there is an outright Jenkins script failure in Apply, etc.... This way
 we no longer have to clean up the infra with /var/log/jenkins/workspace destroy for script failures....
--Add production and development tfvars files.
+- Add production and development tfvars files. Name these master.tfvars and Jenkins_development.tfvars.  master is for production
+and Jenkins_development is for dev environment.  Prod is on 10.124.0.0/16 CIDR block and Jenkins_development is on 
+10.123.0.0/16 CIDR block
+- Now branch the master to Jenkins_development branch and add decision logic into the Jenkinsfile in the Jenkins_development
+branch
 
 
 
