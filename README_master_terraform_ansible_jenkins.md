@@ -70,7 +70,7 @@ ansiblePlaybook(credentialsId: 'EC2-SSH-key', inventory: 'aws_hosts', playbook: 
 or Proceed.
 - Add a Post section to Jenkinsfile for destroy if there is an outright Jenkins script failure in Apply, etc.... This way
 we no longer have to clean up the infra with /var/log/jenkins/workspace destroy for script failures....
-
+- ****Branch master to master_through_lesson78_Post and freeze this branch here.****
 
 
 
