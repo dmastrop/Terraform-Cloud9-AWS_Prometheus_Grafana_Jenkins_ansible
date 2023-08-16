@@ -71,7 +71,7 @@ ansiblePlaybook(credentialsId: 'EC2-SSH-key', inventory: 'aws_hosts', playbook: 
 or Proceed.
 - Add a Post section to Jenkinsfile for destroy if there is an outright Jenkins script failure in Apply, etc.... This way
 we no longer have to clean up the infra with /var/log/jenkins/workspace destroy for script failures....
-- Branched the master to master_through_lesson79_Post to save this setup. Freeze this branch.
+- ***Branched the master to master_through_lesson78_Post to save this setup. Freeze this branch.****
 - Add production and development tfvars files. Name these master.tfvars and Jenkins_development.tfvars.  master is for production
 and Jenkins_development is for dev environment. Names must be the same as the BRANCH NAME. Prod is on 10.124.0.0/16 CIDR block and Jenkins_development is on 
 10.123.0.0/16 CIDR block
