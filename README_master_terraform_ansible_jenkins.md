@@ -65,7 +65,12 @@ aws ec2 wait instance-status-ok  --instance-ids ${self.id} --region us-west-1" b
 -Next integrate the Ansible stage into the Jenkinsfile.  Use the ansiblePlaybook plugin
 https://plugins.jenkins.io/ansible/
 ansiblePlaybook(credentialsId: 'EC2-SSH-key', inventory: 'aws_hosts', playbook: 'playbooks/main-playbook.yml')
--
+-Add a Destroy stage and add Validate Apply, Validate Ansible and Validate Destroy stages to pause the script for user Abort
+or Proceed.
+-Add a Post section to Jenkinsfile for destroy if there is an outright Jenkins script failure in Apply, etc.... This way
+we no longer have to clean up the infra with /var/log/jenkins/workspace destroy for script failures....
+-Add production and development tfvars files.
+
 
 
 
