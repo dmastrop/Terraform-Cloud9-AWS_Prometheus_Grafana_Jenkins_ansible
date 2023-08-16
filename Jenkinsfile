@@ -183,7 +183,7 @@ pipeline {
       // and for production this is master.tfvars.  This is what we did for the destory, apply and plan above as well.
     }
     
-    abort {
+    aborted {
     // https://www.jenkins.io/doc/book/glossary/#build-status
       sh 'terraform destroy -auto-approve -no-color -var-file="$BRANCH_NAME.tfvars"'
     }
