@@ -23,7 +23,7 @@ master branch has all of the above and latest development code
 
 This master will continue off of the dev_terraform_FULL_ansible and integrate all of the above with jenkins and pipelines, etc......
 
-*******New code in master branch:
+*******New code in master branch:******
 - jenkins-playbook.yml is outside of terraform state (not added to compute.tf). This deploys jenkins to the Cloud9 instance
 - integration of github and terraform with jenkins 
 - Github API app id and credentials added to Jenkins so that Jenkins has access to the github repo for this project
@@ -46,7 +46,7 @@ _ NOTE: should not run master branch from Cloud9 terminal main workspace. If req
 - Thus Jenkins must have the private ssh key and be told where the playbook is and where the inventory is (aws_hosts file)
 - This WEB UI run of Jenkins is successful.
 
-*****Now adapt the above to a Jenkinsfile (using a Multibranch pipeline template in Jenkins)********
+*****Now adapt the above to a Jenkinsfile (using a Multibranch pipeline template in Jenkins):********
 -Before running Jenkinsfile with terraform commands need to ensure that credentials are in place
 -Also need to ensure that webhook URL is specified in the Developer settings of Github and repository settings also have the webhook
 URL, so that Github can connect to Jenkins.  The webhook URL is http://54.215.200.20:8080/github-webhook in Developer settings
