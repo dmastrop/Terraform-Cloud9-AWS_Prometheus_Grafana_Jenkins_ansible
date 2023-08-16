@@ -60,6 +60,15 @@ pipeline {
     }
     
     stage('Validate Apply') {
+    
+      when {
+      // only validate apply when branch is dev and make sure you evaluate before the input below so that we can abort it
+      // if required. In dev branch we want the input, and in master branch we do not want the input.
+      // When branch is development, the input will be hit. 
+        beforeInput true
+        branch "Jenkins_development"
+      }
+      
       input {
       // instead of steps we will use input
       message "Do you want to apply this terraform plan?"
@@ -97,6 +106,15 @@ pipeline {
     }
     
     stage('Validate Ansible') {
+    
+      when {
+        // only validate ansible when branch is dev and make sure you evaluate before the input below so that we can abort it
+        // if required. In dev branch we want the input, and in master branch we do not want the input.
+        // When branch is development, the input will be hit. 
+        beforeInput true
+        branch "Jenkins_development"
+      }
+      
       input {
       // instead of steps we will use input
       message "Do you want to run ansible playbook?"
@@ -121,6 +139,10 @@ pipeline {
     }
     
     stage('Validate Destroy') {
+    
+      // for the Destroy we will still have the validation in both dev and master production environments.
+      // so do not insert the when directive here.
+      
       input {
       // instead of steps we will use input
       message "Do you want to destroy this terraform infra?"
