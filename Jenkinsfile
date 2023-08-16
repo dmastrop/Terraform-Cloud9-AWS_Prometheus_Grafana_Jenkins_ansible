@@ -27,8 +27,15 @@ pipeline {
     stage('Init') {
       steps {
         sh 'ls'
-        sh 'export TF_IN_AUTOMATION=true'
+        //sh 'export TF_IN_AUTOMATION=true'
+        // this export is no longer needed. It has been added to the top of this pipeline. See above.
         sh 'terraform init -no-color'
+        
+        sh 'cat $BRANCH_NAME.tfvars'
+        // BRANCH_NAME is a reserved variable by Jenkins. We will see the contents of the Jenkins_development.tfvars file
+        // when this cat is run in the development branch and we will see contenxts of the master.tfvars file when this cat
+        // is run in production branch master.
+        
         // the terraform plugin for jenkinsfiles is dated but we could have used that here to natively run the 
         // terraform commands here.
       }
@@ -43,7 +50,12 @@ pipeline {
         // note that each stage is isolated in terms of ENV variables.
         // exports must be added to each stage.
         
-        sh 'terraform plan -no-color'
+        //sh 'terraform plan -no-color'
+        
+        sh 'terraform plan -no-color -var-file="$BRANCH_NAME.tfvars"'
+        // this will run the plan with the BRANCH_NAME.tfvars file. For development this is Jenkins_development.tfvars
+        // and for production this is master.tfvars. This must be done for the apply and destroy below as well.
+        
       }    
     }
     
@@ -63,7 +75,11 @@ pipeline {
     
     stage('Apply') {
       steps {
-        sh 'terraform apply -auto-approve -no-color'
+        sh 'terraform apply -auto-approve -no-color -var-file="$BRANCH_NAME.tfvars"'
+        // this will run the apply with the BRANCH_NAME.tfvars file. For development this is Jenkins_development.tfvars
+        // and for production this is master.tfvars. This must be done for the destroy below as well and the plan above.
+      
+        //sh 'terraform apply -auto-approve -no-color'
         // intentional failure (below) to test out post function below
         // Note a comment change does not institue a trigger for Jenkins to rebuild even if pushed to repo
         // this is unlike Github actions scripting.
@@ -120,7 +136,11 @@ pipeline {
     
     stage('Destroy') {
       steps {
-        sh 'terraform destroy -auto-approve -no-color'
+        sh 'terraform destroy -auto-approve -no-color -var-file="$BRANCH_NAME.tfvars"'
+        // this will run the destroy with the BRANCH_NAME.tfvars file. For development this is Jenkins_development.tfvars
+        // and for production this is master.tfvars.  This is what we did for the apply and plan above as well.
+      
+        //sh 'terraform destroy -auto-approve -no-color'
       }
     }        
   } 
@@ -132,7 +152,12 @@ pipeline {
       echo 'Success edit4'
     }
     failure {
-      sh 'terraform destroy -auto-approve -no-color'
+      //sh 'terraform destroy -auto-approve -no-color'
+      
+      sh 'terraform destroy -auto-approve -no-color -var-file="$BRANCH_NAME.tfvars"'
+      // this will run the Post destroy with the BRANCH_NAME.tfvars file. For development this is Jenkins_development.tfvars
+      // and for production this is master.tfvars.  This is what we did for the destory, apply and plan above as well.
+      
     }
   }
 } 

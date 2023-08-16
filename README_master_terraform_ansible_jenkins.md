@@ -73,10 +73,11 @@ or Proceed.
 we no longer have to clean up the infra with /var/log/jenkins/workspace destroy for script failures....
 - ***Branched the master to master_through_lesson78_Post to save this setup. Freeze this branch.****
 - Add production and development tfvars files. Name these master.tfvars and Jenkins_development.tfvars.  master is for production
-and Jenkins_development is for dev environment. Names must be the same as the BRANCH NAME. Prod is on 10.124.0.0/16 CIDR block and Jenkins_development is on 
+and Jenkins_development is for dev environment. Names must be the same as the git BRANCH NAME. Prod is on 10.124.0.0/16 CIDR block and Jenkins_development is on 
 10.123.0.0/16 CIDR block
 - Now branch the master to Jenkins_development branch and add decision logic into the Jenkinsfile in the Jenkins_development
-branch that is specific for development environment (We need to Validate each step in the Jenkinsfile)
+branch that is specific for development environment (We need to Validate each step in the Jenkinsfile but we won't be doing this in
+the production master branch)
 - Merge the Jenkins_development branch into the master (production)
 
 
