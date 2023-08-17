@@ -99,7 +99,15 @@ pipeline {
     
     stage('EC2 Wait') {
       steps {
-        sh 'aws ec2 wait instance-status-ok --region us-west-1'
+        // https://jqlang.github.io/jq/manual/#select
+      
+        sh '''aws ec2 wait instance-status-ok \\
+        --instance-ids $(terraform show -json | jq -r \'.values\'.\'root_module\'.\'resources[] | select(.type == "aws_instance").values.id\') \\
+        --region us-west-1'''
+      
+      
+      // Comment out the below and use the JQ script above so that there will be wait only on deployed EC2 instances 
+        //sh 'aws ec2 wait instance-status-ok --region us-west-1'
         // this will wait on all EC2 instances in the region. Not efficient but will do for now....
         // we are doing this after the apply because the ansible deployment of granfana and prometheus will
         // occur after this and the EC2 instances have to be fully up prior to attempting to install the applications....

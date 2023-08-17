@@ -79,6 +79,18 @@ and Jenkins_development is for dev environment. Names must be the same as the gi
 branch that is specific for development environment (We need to Validate each step in the Jenkinsfile but we won't be doing this in
 the production master branch)
 - Merge the Jenkins_development branch into the master (production)
+- At this point the BRANCH_NAME env variable added to Jenkinsfile accomplishes two objectives: first we can run the terraform apply and plan and destroy
+based upon the BRANCH_NAME for proper deployment and cleanup of proper CIDR block, and any other tfvars variables specific to branch.
+Next, we can use the "when" beforeInput true logic in the Apply validate and the Ansible validate so that only development branch will
+do an Apply and Ansible validate.  Destroy validate will be performed for both development and master branches.
+- Add Aborted logic to Post in Jenkinsfile.
+- JQ:  use JQ to glean the aws_instance ids that are deployed via the terraform job.  We can use this info to narrow down the ec2 wait between
+the Apply and Ansible stages: Wait only for the instances that have been deployed on the job and not all of the instances in the entire aws region.
+- JQ:  use the jenkins pipeline script generator to make this: terraform show -json | jq -r '.values'.'root_module'.'resources[] | select(.type == "aws_instance").values.id'
+compatible with Jenkinsfile syntax.
+- JQ:  the full script that needs to be converted is:
+aws ec2 wait instance-status-ok --instance-ids $(terraform show -json | jq -r '.values'.'root_module'.'resources[] | select(.type == "aws_instance").values.id') --region us-west-1
+
 
 
 
