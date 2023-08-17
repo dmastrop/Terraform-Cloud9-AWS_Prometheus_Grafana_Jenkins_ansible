@@ -180,7 +180,7 @@ pipeline {
   post {
   // https://www.jenkins.io/doc/pipeline/tour/post/
     success {
-      echo 'Success edit4'
+      echo 'Success edit5'
     }
     
     failure {
