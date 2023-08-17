@@ -90,6 +90,17 @@ the Apply and Ansible stages: Wait only for the instances that have been deploye
 compatible with Jenkinsfile syntax.
 - JQ:  the full script that needs to be converted is:
 aws ec2 wait instance-status-ok --instance-ids $(terraform show -json | jq -r '.values'.'root_module'.'resources[] | select(.type == "aws_instance").values.id') --region us-west-1
+- Incorporate the above into Jenkinsfile EC2 wait stage
+- Remove the local provisioners in compute.tf that are being used to generate the aws_hosts EC2 inventory list of ip addresses that are used by the ansible stage
+for the deployment of Granfana and Prometheus
+- Always best to avoid provisioners if possible as they are NOT in terraform state.
+- Add a new output to the compute.tf called "instance_ips". This is a listing of the ip addresses of all of the EC2 instances in the terraform deployment
+- JQ: next create the syntax for the aws_hosts from the above output "instance_ips". json/JQ can reformat the above in suitable format to pipe into aws_hosts file
+- JQ: the original syntax needs to be passed through the Jenkins pipeline syntax generator.
+- The full script that needs to be converted is below:
+printf "\n$(terraform output -json instance_ips | jq -r '.[]')" >> aws_hosts
+- Insert line breaks and convert and then insert this shell script into the new Jenkins stage called 'Inventory aws_hosts generator stage'
+- The ip inventory list will be piped into aws_hosts file for use by ansibile for application deployment.
 
 
 

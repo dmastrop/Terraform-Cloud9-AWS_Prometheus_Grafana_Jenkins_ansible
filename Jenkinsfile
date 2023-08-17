@@ -42,6 +42,9 @@ pipeline {
     }  
     // stages typically end at 2 curly brackets down.
     
+    
+    
+    
     stage('Plan') {
       steps {
         // sh 'export TF_IN_AUTOMATION=true'
@@ -58,6 +61,9 @@ pipeline {
         
       }    
     }
+    
+    
+    
     
     stage('Validate Apply') {
     
@@ -83,6 +89,9 @@ pipeline {
       }
     }
     
+    
+    
+    
     stage('Apply') {
       steps {
         sh 'terraform apply -auto-approve -no-color -var-file="$BRANCH_NAME.tfvars"'
@@ -97,6 +106,23 @@ pipeline {
       }
     }
     
+    
+    
+    
+    stage('Inventory aws_hosts generator stage') {
+      steps {
+        // This inventory list in aws_hosts was formerly created with local provisioners in compute.tf.  This is moved to Jenkinsfile
+        // and by using JQ the inventory list can be created for use by ansible stage below for deployment of Grafana and Prometheus.
+        // inserted the shell script below after passing the original syntax through the Jenkins pipeline generator.
+        sh '''printf \\
+        "\\n$(terraform output -json instance_ips | jq -r \'.[]\')" \\
+        >> aws_hosts'''
+      }
+    }
+    
+    
+    
+    
     stage('EC2 Wait') {
       steps {
         // https://jqlang.github.io/jq/manual/#select
@@ -107,12 +133,16 @@ pipeline {
       
       
       // Comment out the below and use the JQ script above so that there will be wait only on deployed EC2 instances 
+      // Note that the original syntax is passed through the Jenkins pipeline syntax generator and results in the above syntax.
         //sh 'aws ec2 wait instance-status-ok --region us-west-1'
         // this will wait on all EC2 instances in the region. Not efficient but will do for now....
         // we are doing this after the apply because the ansible deployment of granfana and prometheus will
         // occur after this and the EC2 instances have to be fully up prior to attempting to install the applications....
       }
     }
+    
+    
+    
     
     stage('Validate Ansible') {
     
@@ -138,15 +168,25 @@ pipeline {
       }
     }
     
+    
+    
+    
     stage('Ansible') {
       steps {
         ansiblePlaybook(credentialsId: 'EC2-SSH-key', inventory: 'aws_hosts', playbook: 'playbooks/main-playbook.yml')
         // ansiblePlaybook(credentialsId: 'private_key', inventory: 'inventories/a/hosts', playbook: 'my_playbook.yml'
         // the private_key name is the name assigned to teh EC2 ssh key in Jenkins not the name in the Cloud9 directory
+        // (but they are referring to the same SSH private key, just different names)
         // this should bootstrap EC2 instance with grafana and prometheus
         // https://plugins.jenkins.io/ansible/
+        // the ansiblePlaybook is essentially running ansible-playbook -i aws_hosts --key-file <> playbooks/main-playbook.yml 
+        // OR ansible-playbook -i aws_hosts --private-key <> playbooks/main-playbook.yml against each EC2 instance in the 
+        // aws_hosts inventory list.  This was formerly done in the null_resource of commpute.tf
       }
     }
+    
+    
+    
     
     stage('Validate Destroy') {
     
@@ -166,6 +206,9 @@ pipeline {
       }
     }
     
+    
+    
+    
     stage('Destroy') {
       steps {
         sh 'terraform destroy -auto-approve -no-color -var-file="$BRANCH_NAME.tfvars"'
@@ -176,6 +219,9 @@ pipeline {
       }
     }        
   } 
+  
+  
+  
   
   post {
   // https://www.jenkins.io/doc/pipeline/tour/post/

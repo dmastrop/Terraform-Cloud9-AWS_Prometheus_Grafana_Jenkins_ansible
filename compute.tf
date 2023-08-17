@@ -112,13 +112,16 @@ resource "aws_instance" "mtc_main" {
   }
 
 
+##Comment out both local provisioners. We will be using the new output below instance_ips along with JQ to parse out the 
+##inventory and pipe it into aws_hosts. This will be done in the Jenkinsfile now.  It is always a good idea to optimize out
+##the use of local provisioners, if possible.....
 
   # this is a local provsioner, i.e. it is embedded in the aws_instance resource object.
   # Thus the self object can be used
   # https://developer.hashicorp.com/terraform/language/resources/provisioners/syntax
   # https://developer.hashicorp.com/terraform/language/resources/provisioners/local-exec
   # this provisioner is executed locally whenever a new aws_instance is created.  the command will be run.
-  provisioner "local-exec" {
+##  provisioner "local-exec" {
     ##command = "printf '\n${self.public_ip}' >> aws_hosts"
     # note that single quotes around what we are passing into the aws_hosts file
     # the aws_hosts file is local on Cloud9 development instance where we are running terraform.
@@ -130,18 +133,25 @@ resource "aws_instance" "mtc_main" {
     
     ##command = "printf '\n${self.public_ip}' >> aws_hosts && aws ec2 wait instance-status-ok  --instance-ids ${self.id} --region us-west-1"
     # temporarily remove the aws ec2 wait until we get credentials in the Jenkinsfile.
-    command = "printf '\n${self.public_ip}' >> aws_hosts"
-  }
+    
+ ##   command = "printf '\n${self.public_ip}' >> aws_hosts"
+ ## }
+
+
+
+## Likewise comment out this local provisioner.  Will be doing the cleanup in the Jenkinsfile.
 
   # https://developer.hashicorp.com/terraform/language/resources/provisioners/syntax
-  provisioner "local-exec" {
-    when    = destroy
-    command = "sed -i '/^[0-9]/d' aws_hosts"
+##  provisioner "local-exec" {
+##    when    = destroy
+##    command = "sed -i '/^[0-9]/d' aws_hosts"
     # regex expression is used above
     # sed is linux. It will perform the operation on the aws_hosts file.
     # Any line beginnin with a number [0-9] will be removed  /d at the end means delete the line.
     # last is the filename that the sed operation will be performed on....
-  }
+##  }
+
+## note leave this trailing bracket. This terminates the aws_instance resource
 }
 
 
@@ -215,4 +225,12 @@ output "instance_ips_for_grafana_access" {
 
 output "instance_ips_for_prometheus_access" {
   value = { for i in aws_instance.mtc_main[*] : i.tags.Name => "${i.public_ip}:9090" }
+}
+
+# this is the new output that will be used in conjunction with JQ to create the aws_hosts inventory
+# Using this method we can get rid of the local provisioner above that is embedded in the aws_instance resoure.
+output "instance_ips" {
+  value = [for i in aws_instance.mtc_main[*]: i.public_ip]
+  # we can use square brackets []rather than {} because we do not need to tranform (:3000) or append (tags.Name) anything 
+  # like the 3000 and 9090 in the outputs above, we just need to create an array or list of ip addreses.
 }
