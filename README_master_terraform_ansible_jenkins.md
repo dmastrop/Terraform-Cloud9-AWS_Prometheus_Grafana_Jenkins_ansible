@@ -101,6 +101,12 @@ for the deployment of Granfana and Prometheus
 printf "\n$(terraform output -json instance_ips | jq -r '.[]')" >> aws_hosts
 - Insert line breaks and convert and then insert this shell script into the new Jenkins stage called 'Inventory aws_hosts generator stage'
 - The ip inventory list will be piped into aws_hosts file for use by ansibile for application deployment.
+- Add compute.tf output for instance_ids to be used to simplify the EC2 wait stage in Jenkinsfile
+- Use the output instance_ids and terraform output in place of terraform show in the EC2 wait stage of Jenkinsfile.
+- JQ: The unconverted syntax is: aws ec2 wait instance-status-ok --instance-ids $(terraform output -json instance_ids | jq -r '.[]') --region us-west-1
+- JQ: The Jenkins pipeline converted shell command syntax is: 
+sh '''aws ec2 wait instance-status-ok \\ --instance-ids $(terraform output -json instance_ids | jq -r '.[]') \\ --region us-west-1'''
+
 
 
 
