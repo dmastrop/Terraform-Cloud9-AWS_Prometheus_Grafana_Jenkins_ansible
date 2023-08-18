@@ -234,3 +234,10 @@ output "instance_ips" {
   # we can use square brackets []rather than {} because we do not need to tranform (:3000) or append (tags.Name) anything 
   # like the 3000 and 9090 in the outputs above, we just need to create an array or list of ip addreses.
 }
+
+# this is the new output that weill be used in conjunction with JQ to simpiify the EC2 wait state shell comamand that uses
+# aws ec2 wait.  The aws ec2 wait command is used in the EC2 wait stage of the Jenkinsfile. It already uses JQ but the
+# custom output can be used to simplify the syntax.
+##output "instance_ids" {
+##  value = [for i in aws_instance.mtc_main[*]: i.]
+##}
