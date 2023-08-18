@@ -133,7 +133,7 @@ pipeline {
       //comment out the below. Use the output created in compute.tf "instance_ids" along with JQ and terraform output to get the aws_instance ids for the 
       // aws ec2 wait command. Incorporate this into the command.  The JQ syntax is 
       // terraform output -json instance_ids | jq -r '.[]'    This replaces the terraform show command in the older implementation (too complex)
-      // the new code is above.  
+      // the new code is above.   This has been converted using the Jenkins pipeline syntax converter.
         //sh '''aws ec2 wait instance-status-ok \\
         //--instance-ids $(terraform show -json | jq -r \'.values\'.\'root_module\'.\'resources[] | select(.type == "aws_instance").values.id\') \\
         //--region us-west-1'''
@@ -233,7 +233,7 @@ pipeline {
   post {
   // https://www.jenkins.io/doc/pipeline/tour/post/
     success {
-      echo 'Success edit9'
+      echo 'Success edit10'
     }
     
     failure {

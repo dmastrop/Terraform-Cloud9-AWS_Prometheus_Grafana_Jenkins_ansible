@@ -104,8 +104,8 @@ printf "\n$(terraform output -json instance_ips | jq -r '.[]')" >> aws_hosts
 - Add compute.tf output for instance_ids to be used to simplify the EC2 wait stage in Jenkinsfile
 - Use the output instance_ids and terraform output in place of terraform show in the EC2 wait stage of Jenkinsfile.
 - JQ: The unconverted syntax is: aws ec2 wait instance-status-ok --instance-ids $(terraform output -json instance_ids | jq -r '.[]') --region us-west-1
-- JQ: The Jenkins pipeline converted shell command syntax is: 
-sh '''aws ec2 wait instance-status-ok \\--instance-ids $(terraform output -json instance_ids | jq -r \'.[]\') \\--region us-west-1'''
+- JQ: The Jenkins pipeline converted shell command syntax is obtained from the Jenkins pipeline syntax converter tool and has been inserted into the Jenkinsfile
+in the EC2 wait stage.
 
 
 
