@@ -195,7 +195,7 @@ pipeline {
     
     
     
-    stage('Test Grafana and Prometheus http sockets 3000 and 9090" {
+    stage('Test Grafana and Prometheus http sockets 3000 and 9090') {
       steps {
         ansiblePlaybook(credentialsId: 'EC2-SSH-key', inventory: 'aws_hosts', playbook: 'playbooks/node-test-optimize.yml')
         # use the optimized node-test yml file with the dict and loop
