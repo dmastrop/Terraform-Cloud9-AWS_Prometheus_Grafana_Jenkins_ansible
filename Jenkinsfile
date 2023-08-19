@@ -198,8 +198,8 @@ pipeline {
     stage('Test Grafana and Prometheus http sockets 3000 and 9090') {
       steps {
         ansiblePlaybook(credentialsId: 'EC2-SSH-key', inventory: 'aws_hosts', playbook: 'playbooks/node-test-optimize.yml')
-        # use the optimized node-test yml file with the dict and loop
-        # no need to set the when conditional Jenkins_development since we want to use this in production master as well.
+        // use the optimized node-test yml file with the dict and loop
+        // no need to set the when conditional Jenkins_development since we want to use this in production master as well.
       }
     }
     
