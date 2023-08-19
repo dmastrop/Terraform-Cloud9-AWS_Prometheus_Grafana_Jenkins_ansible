@@ -108,6 +108,8 @@ printf "\n$(terraform output -json instance_ips | jq -r '.[]')" >> aws_hosts
 in the EC2 wait stage.
 - prototype the ansible code for testing the apps with ansible playbook using ansible.builtin.uri.  Troubleshoot access list issues when initating the playbook
 from the Cloud9 IDE.
+- optimize the ansible code that is used for testing the apps with ansible.builtin.dict and use a loop as well.  The dictionary is defined in the vars:
+- incorporate this working ansible playbook clip into main-playbook.yml and test this out.
 
 
 

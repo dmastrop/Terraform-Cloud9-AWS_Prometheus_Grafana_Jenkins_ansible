@@ -1,0 +1,57 @@
+---
+- name: Test for Granana and Prometheus access
+  hosts: main
+  # the aws_hosts file uses [main]
+  gather_facts: no
+  # this gathers facts on remote nodes.
+  vars:
+  # optimize this with loops and dicts
+  # item.key item.value.x item.value.y can be used to index the vars dictionary
+  # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/dict_lookup.html
+  # https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_lookups.html
+    apps:
+    # dictionary name is apps
+      grafana:
+      # item 1 is grafana
+        port: 3000
+        status_code: [302]
+      prometheus:
+      # item 2 is prometheus
+        port: 9090
+        status_code: [302]
+        # values are port and status_code
+  
+  tasks:
+  - name: test_apps
+    ansible.builtin.uri:
+      url: "http://{{ inventory_hostname }}:{{ item.value.port }}"
+      follow_redirects: none
+      status_code: "{{ item.value.status_code }}"
+      # item.value.port and value.status.code  reference the vars dictionary above
+    loop: "{{ lookup('dict', apps) }}"
+    # alternate syntax is 
+    # loop: "{{ lookup('ansible.builtin.dict', apps) }}"
+  
+  
+## old configuration comment out.  See node-test.yml for original file contents
+  ##tasks:
+  # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/uri_module.html
+ ## - name: Grafana
+ ##   ansible.builtin.uri:
+    #uri:
+    # uri: can be used as shorthand but best to be explicit and list the full module name.
+ ##     url: http://{{ inventory_hostname }}:3000
+      # inventory_hostname is alerady stored within the playbook. 
+      # our inventory is in the aws_hosts file that is used by ansible to provision and deploy the apps.
+ ##     follow_redirects: none
+      # we will look for the 302 itself and not follow the redirect for the 200 ok.
+ ##     status_code: [302]
+      
+ ##     timeout: 30
+      
+ ## - name: Prometheus
+ ##   ansible.builtin.uri:
+ ##     url: http://{{ inventory_hostname }}:9090
+ ##     follow_redirects: none
+ ##     status_code: [302]
+      
