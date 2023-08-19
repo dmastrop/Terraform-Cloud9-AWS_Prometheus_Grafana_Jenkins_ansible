@@ -1,0 +1,27 @@
+---
+- name: Test for Granana and Prometheus access
+  hosts: main
+  # the aws_hosts file uses [main]
+  gather_facts: no
+  # this gathers facts on remote nodes.
+  tasks:
+  # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/uri_module.html
+  - name: Grafana
+    ansible.builtin.uri:
+    #uri:
+    # uri: can be used as shorthand but best to be explicit and list the full module name.
+      url: http://{{ inventory_hostname }}:3000
+      # inventory_hostname is alerady stored within the playbook. 
+      # our inventory is in the aws_hosts file that is used by ansible to provision and deploy the apps.
+      follow_redirects: none
+      # we will look for the 302 itself and not follow the redirect for the 200 ok.
+      status_code: [302]
+      
+      timeout: 30
+      
+  - name: Prometheus
+    ansible.builtin.uri:
+      url: http://{{ inventory_hostname }}:9090
+      follow_redirects: none
+      status_code: [302]
+      

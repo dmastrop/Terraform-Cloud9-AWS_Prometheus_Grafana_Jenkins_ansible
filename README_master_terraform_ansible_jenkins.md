@@ -106,6 +106,8 @@ printf "\n$(terraform output -json instance_ips | jq -r '.[]')" >> aws_hosts
 - JQ: The unconverted syntax is: aws ec2 wait instance-status-ok --instance-ids $(terraform output -json instance_ids | jq -r '.[]') --region us-west-1
 - JQ: The Jenkins pipeline converted shell command syntax is obtained from the Jenkins pipeline syntax converter tool and has been inserted into the Jenkinsfile
 in the EC2 wait stage.
+- prototype the ansible code for testing the apps with ansible playbook using ansible.builtin.uri.  Troubleshoot access list issues when initating the playbook
+from the Cloud9 IDE.
 
 
 
