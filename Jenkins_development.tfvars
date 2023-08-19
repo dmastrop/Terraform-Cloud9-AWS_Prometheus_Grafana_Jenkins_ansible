@@ -14,3 +14,5 @@ main_instance_count = 2
 # adding this from the variables.tf file. This value will override the value in variables.tf file.
 # This is going to be used as part of JQ optimization for the ec2 wait requirement between apply and ansible.
 # Adding this to both Jenkins_development.tfvars and master.tfvars.
+
+# NOTE:the Jenkins_development.tfvars and the master.tfvars override the varaibles.tf
