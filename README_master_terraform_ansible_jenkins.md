@@ -109,7 +109,8 @@ in the EC2 wait stage.
 - prototype the ansible code for testing the apps with ansible playbook using ansible.builtin.uri.  Troubleshoot access list issues when initating the playbook
 from the Cloud9 IDE.  It requires source ip of public_ips to be added to the security group rules.  For now just use source 0.0.0.0/0
 - optimize the ansible code that is used for testing the apps with ansible.builtin.dict and use a loop as well.  The dictionary is defined in the vars:
-- add a new stage in Jenkins that calls this new playbook to test the connectivty to the apps:
+- add a new stage  in Jenkins that calls this new playbook to test the connectivty to the apps:
+stage('Test Grafana and Prometheus http sockets 3000 and 9090') 
 ansiblePlaybook(credentialsId: 'EC2-SSH-key', inventory: 'aws_hosts', playbook: 'playbooks/node-test-optimize.yml')
 
 
