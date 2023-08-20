@@ -294,8 +294,8 @@ resource "aws_security_group_rule" "ingress_all" {
   protocol  = "-1"
   # this means all protocols: icmp, tcp, udp, etc.....
   
-  #cidr_blocks = [var.access_ip, var.cloud9_ip]
-  cidr_blocks = [var.access_ip, var.cloud9_ip, [for i in aws_instance.mtc_main[*]: i.public_ip]]
+  cidr_blocks = [var.access_ip, var.cloud9_ip]
+  #cidr_blocks = [var.access_ip, var.cloud9_ip, [for i in aws_instance.mtc_main[*]: i.public_ip]]
   
   
   # note that cidr_blocks is a list so need the []
