@@ -293,7 +293,11 @@ resource "aws_security_group_rule" "ingress_all" {
   to_port   = 65535
   protocol  = "-1"
   # this means all protocols: icmp, tcp, udp, etc.....
-  cidr_blocks = [var.access_ip, var.cloud9_ip]
+  
+  #cidr_blocks = [var.access_ip, var.cloud9_ip]
+  cidr_blocks = [var.access_ip, var.cloud9_ip, [for i in aws_instance.mtc_main[*]: i.public_ip]]
+  
+  
   # note that cidr_blocks is a list so need the []
   # the access_ip will be my PC address. I am using an
   # expanded CIDR block of 98.234.0.0/16
