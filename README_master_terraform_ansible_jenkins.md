@@ -112,6 +112,7 @@ from the Cloud9 IDE.  It requires source ip of public_ips to be added to the sec
 - add a new stage  in Jenkins that calls this new playbook to test the connectivty to the apps:
 stage('Test Grafana and Prometheus http sockets 3000 and 9090') 
 ansiblePlaybook(credentialsId: 'EC2-SSH-key', inventory: 'aws_hosts', playbook: 'playbooks/node-test-optimize.yml')
+- merged Jenkins_development to master branch and created a gitcommits_merge.log file in the master branch.
 
 
 

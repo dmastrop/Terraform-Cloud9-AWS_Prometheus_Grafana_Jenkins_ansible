@@ -1,0 +1,1050 @@
+commit 2ceaa27da3e65f23150df60cb6999e740abe04aa
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 20 22:07:43 2023 +0000
+
+    test12
+
+commit 835ff82a3cd0b7f7294e54e7665560e38c4d8e01
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 20 21:49:54 2023 +0000
+
+    test11
+
+commit 4bec4b14d83f2d33be5503f8b0384ee3db0cf02f
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 20 02:27:56 2023 +0000
+
+    README
+
+commit 1c98d3080d853561f8ed17876f834bb331d182fe
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 20 02:20:59 2023 +0000
+
+    README
+
+commit 1ccdf79e90abf745128403153a7ccc30bbe6e394
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 20 01:54:47 2023 +0000
+
+    syntax error in variables.tf
+
+commit 33906941b34008eedcb8915077679fee8b358d2b
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 20 01:47:43 2023 +0000
+
+    added README and added 0.0.0.0/0 to the security group rules for the ansible.builtin.uri workaround in variables.tf and networking.tf files
+
+commit 79f046c0258518dc6b3a53b903268aa55cffdcb0
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 20 00:40:54 2023 +0000
+
+    revert networking.tf
+
+commit 17ac3fb9b08c76f619a1b17f51cb2757f7f9ad62
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 20 00:00:27 2023 +0000
+
+    experiment with adding the public ip addresses of the nodes to the ingress access list to deal with the ansible.builtin.uri failure issue
+
+commit 56615f51528875e1e5012c4d1d438f1f3f20af8e
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sat Aug 19 23:32:39 2023 +0000
+
+    syntax error in Jenkinsfile
+
+commit 512b6471081d8a3592d34573cfe824e29e2aecad
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sat Aug 19 23:30:35 2023 +0000
+
+    fix syntax error in new stage that added
+
+commit 3aad8d78e41d11699524a6eac9e49b7da8c7db1b
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sat Aug 19 23:27:01 2023 +0000
+
+    optimized the node-test.yml playbook to include dict and loop. Incorporate this new code after testing into the Jenkinsfile.  Update README
+
+commit 6542b19f19ec0c45399d386f9ade7c78c372cf7f
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sat Aug 19 20:07:43 2023 +0000
+
+     comments added to Jenkins_development and master tfars files
+
+commit 4e99cb0802fa3449626ce33ec79268a1eaff7f40
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sat Aug 19 18:29:59 2023 +0000
+
+    node-test.yml is for testing the ansible.builtin.uri to test apps after deployment.
+
+commit a313a9a876060f452d0067e7c6d0068850470008
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Fri Aug 18 21:13:09 2023 +0000
+
+    Jenkinsfile comments and update the README
+
+commit 7b6fc35f7cf9998fb9e39ca29f4f853768026725
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Fri Aug 18 02:50:26 2023 +0000
+
+    test9
+
+commit 967847564375ddbeb0b5b4ffb38f20dd7247e851
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Fri Aug 18 02:10:46 2023 +0000
+
+    corrected the pipeline syntax for the EC2 aws wait. The command worked but some escape characters were not present so converted using pipeline converter
+
+commit 9be695d4f04aa31a3fe1dbacc713fae598a41d59
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Fri Aug 18 01:40:36 2023 +0000
+
+    updated README
+
+commit 85bd19ab313bd362d87110490699a3ecc6e5432b
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Fri Aug 18 01:33:38 2023 +0000
+
+     added the new EC2 Wait code to Jenkinsfile with the terraform output command instead of the terraform show command syntax. Use JQ as well.  This simplifies the syntax. This uses the output instance_ips committed to comute.tf in last commit
+
+commit b380371484767afc5016180a6d29fef53d1d2201
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Fri Aug 18 00:57:49 2023 +0000
+
+    added new output instance_ids to compute.tf to simplify the ec2 wait stage syntax in Jenkinsfile
+
+commit 16a3e88468542395882a2d113d0c795cec1e040f
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Fri Aug 18 00:13:06 2023 +0000
+
+    test8
+
+commit cd9400adffdfcb0e60360bf60c1079bf14a238dd
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Thu Aug 17 23:17:36 2023 +0000
+
+    test7
+
+commit 406f1db30c8f673c9bbc14a237993f250cf43666
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Thu Aug 17 22:46:43 2023 +0000
+
+    test6
+
+commit 1e1d2efbda0232802ba52a51eb6a4e8a17c4f2ca
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Thu Aug 17 22:07:02 2023 +0000
+
+    README updated and added all JQ shell script logic to the new Jenkins stage called Inventory aws_hosts generator stage. Removed the local provisioner code for the aws_hosts inventory as it will be done in Jenkins with this new code. Make sure aws_hosts file is cleaned up after development tests
+
+commit d3265e47f033c5af69c376f59802c55fcd32521a
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Thu Aug 17 19:15:31 2023 +0000
+
+    test5
+
+commit 7d25926f2a2a4e99d28e764e6bb15b89e7c35034
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Thu Aug 17 03:01:02 2023 +0000
+
+    added JQ script for the aws ec2 wait in the Jenkinsfile. This will only wait on the deployed EC2 instances and not on all instances in the region. Much more efficient
+
+commit cc49bcd9d45f64b14a20dbc1825b57cad9227ab8
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Wed Aug 16 23:48:51 2023 +0000
+
+    add the main_instance_count variables.tf variable to both master.tfvars and Jenkins_development.tfvars.  tfvars will take precedence over variables.tf.  The value is set to 2
+
+commit d11a4300ba0cc6ccbf90dc1a274e765a22cb2241
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Wed Aug 16 22:17:52 2023 +0000
+
+    syntax error aborted not abort as post action
+
+commit 67c56e0bf9ed4ba782d8a78552ea49491d621318
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Wed Aug 16 22:13:27 2023 +0000
+
+    added abort to the Post section of Jenkinsfile
+
+commit 26427f216696d8b77bda22b668e2da0c1cc98074
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Wed Aug 16 21:20:22 2023 +0000
+
+    comments added to Jenkinsfile
+
+commit ff8196128d23c8129ca4f5ae6ae4008f0e69c733
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Wed Aug 16 20:55:54 2023 +0000
+
+    added conditionals to Jenkins_development branch with when directive for Validations during stage execution. In dev we should still get validations
+
+commit 01bde1f55255d581e96e7c6c440a3d2a997019a1
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Wed Aug 16 19:58:12 2023 +0000
+
+    added master.tfvars and Jenkins_development.tfvars and modified Jenkinsfile for BRANCH_NAME logic
+
+commit 21159609be2b82d56d1a08f11c518a8aef20cab6
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Wed Aug 16 04:08:08 2023 +0000
+
+    README
+
+commit d807c1617e4ff477b6f43252beb442e8a0f641ff
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Wed Aug 16 03:50:51 2023 +0000
+
+    README
+
+commit 43ced93ea7007fc6454af8111341ce6fff418d4c
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Wed Aug 16 03:42:37 2023 +0000
+
+    README
+
+commit cfaae39f7ba54374f2bd487642cfb12382599c67
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Wed Aug 16 02:43:13 2023 +0000
+
+    update README and branch this master to master_through_lesson79_Post
+
+commit efd07d6b59c09a3564dcf2ff87643566756bcb05
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Wed Aug 16 02:03:33 2023 +0000
+
+    test edit4
+
+commit 55ebb48786977193c398f717ddb1d270a4b23fff
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 15 23:32:03 2023 +0000
+
+    test edit3 for token issue
+
+commit 02d18837ddd61b2f14b76ecad0e2712cd4da94d7
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 15 23:07:48 2023 +0000
+
+    testing again for the expired token issue > 15 minutes with Jenkins script
+
+commit 04f8e8c0be3a1fe90791a02b92d75c193159b774
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 15 22:59:27 2023 +0000
+
+    testing for 15 minutes delay aws_session_token
+
+commit a318ebda0d16d97b4e62331fbb6982707a99c100
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 15 21:45:59 2023 +0000
+
+    revert broken syntax to restore and test full apply
+
+commit 551e5a765503c46d519a2414faa87428159697b0
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 15 21:43:02 2023 +0000
+
+    test5
+
+commit b6ccbf95ca37b468079f208e1c16e31eec3aaab2
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 15 21:40:12 2023 +0000
+
+    test4
+
+commit 424bf62a3b1748899e716886395719b4971f85e5
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 15 21:25:23 2023 +0000
+
+    test
+
+commit 2b01c4944d756c8279ed99f5500d62e38cf3647b
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 15 21:17:32 2023 +0000
+
+    test
+
+commit a5412d597c41a16b385ee1b0d9bacb8ec52cc623
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 15 21:15:15 2023 +0000
+
+    test
+
+commit 91e27c71190457c0ae2648e5e971e679f2b5a621
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 15 20:46:17 2023 +0000
+
+    test
+
+commit 3ca40e26e259f46f269c9307e316bebb0ac26a3e
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 15 20:08:19 2023 +0000
+
+    fixed typo in terraform destory in Post of jenkinsfile
+
+commit 7da278ea0b203963ef344417b8862a9478e59fb6
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 15 19:51:01 2023 +0000
+
+    test
+
+commit 9e436ceee75a889b7ded29f298acdddf1d280804
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 15 19:49:03 2023 +0000
+
+    test
+
+commit ccf108154c7cdcd882f7d62e469f4d35e0c5d65e
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 15 19:40:26 2023 +0000
+
+    test
+
+commit 9510969c44cd4ea5ad5d38e080215d1fdf0d11dc
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 15 19:33:49 2023 +0000
+
+    added post to Jenkinsfile and error to test it out
+
+commit 4c85f2206908730461c1fdc96d12a48b97c076b0
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Mon Aug 14 21:24:32 2023 +0000
+
+    revert Jenkinsfile error syntax
+
+commit 31f58943104832423cfc99137ef14c2d1a61d49f
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Mon Aug 14 21:10:11 2023 +0000
+
+    new folder
+
+commit f6773fe335be8c96610fe12cf39906c4694ae812
+Merge: 4b94ee5 d8e849e
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Mon Aug 14 02:32:07 2023 +0000
+
+    merge
+
+commit 4b94ee5493fe37d542393c1ce5e64522128ae103
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Mon Aug 14 02:17:38 2023 +0000
+
+    retry
+
+commit d8e849ee0c62965ed072144ed720924ea94d3e9d
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Mon Aug 14 02:11:50 2023 +0000
+
+    revert
+
+commit 6ed9824eafc9c40711c6a6b39f80cb040a84aaff
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Mon Aug 14 02:05:40 2023 +0000
+
+    restore back
+
+commit 130cc46ed953ce64bdd95f6df1e5948ac059666d
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Mon Aug 14 02:00:09 2023 +0000
+
+    breaking the script
+
+commit c5491a070ac7e8c149af097cf969a63aca3e88b9
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Mon Aug 14 00:11:04 2023 +0000
+
+    add validaton stages for Ansible and for Destroy stages. 2 addtional validation stages added to Jenkinsfile.
+
+commit a51bd98f534f1f345624930ecef552c7366200be
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 13 23:38:50 2023 +0000
+
+    add Apply accepted steps
+
+commit 63f04e7a6c26433ea80facec2173cfb568091e4b
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 13 23:22:35 2023 +0000
+
+    add Validate Apply stage
+
+commit e3787814437b01f93481f349055dc97d1ac05d6f
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 13 23:16:17 2023 +0000
+
+    added url links to Jenkinsfile for reference
+
+commit e14433470ed5990ee93443a5677278be0ee9a8f1
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 13 22:51:38 2023 +0000
+
+    corrected credentialsId from credentialsID
+
+commit eae9a4a5974009eca0c262d5d87de21ea08e4789
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 13 22:43:18 2023 +0000
+
+    added to README and added ansiblePlaybook(credentialsID: 'EC2-SSH-key', inventory: 'aws_hosts', playbook: 'playbooks/main-playbook.yml') ansible stage to Jenkinsfile
+
+commit bff72543bf326afd38f29e29a0e18b9a6079ecf6
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 13 21:46:06 2023 +0000
+
+    added to README and added the ec2 wait stage to the Jenkinsfile as well as the AWS_SHARED_CREDENTIALS_FILE ENV Variable
+
+commit d4c271a73050499c6f0efc9df4abc4c91af4461a
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 13 21:07:06 2023 +0000
+
+    syntax error in quotes on Apply and Destroy stages
+
+commit f8a932254f5aae1007554bd11e7d855d3786e0ba
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 13 21:02:59 2023 +0000
+
+    added Apply and Destroy stages to the Jenkinsfile
+
+commit ff3d9bb0e02ec4bc1b76b9dea9244bccb6a37258
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 13 20:56:31 2023 +0000
+
+    modification to compute.tf
+
+commit 77dc5f33653d6232ade32a471009695e77ae88e6
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 13 20:24:31 2023 +0000
+
+    commit push
+
+commit 96163cda145a7d4da8ebdd61820ebf4c46cfbeca
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 13 19:57:44 2023 +0000
+
+    added to README also corrected TF_CLI_CONFIG_FILE = credentials('terrform-cloud-credentials-for-jenkins') Note terrform misspelled....
+
+commit eeb82e4272d0c5db5d6deadd533dd829dfae8a3b
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 13 19:41:32 2023 +0000
+
+    added to README; added ENV variables TF_CLI_CONFIG_FILE to the Jenkinsfile
+
+commit 6142d6ca889723d6211c90a0f182d08f9cfeca4b
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 13 19:06:40 2023 +0000
+
+    added to README for master branch
+
+commit 7524d18b3add001ec76cceba3d60335a9622e710
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 13 03:00:01 2023 +0000
+
+    commit
+
+commit c5dbb5f1bc12428828a4403679998754246a4745
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 13 02:57:44 2023 +0000
+
+    commit
+
+commit 56a581859da7e69e8eb0d60f3361c2e081d64ddb
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 13 02:25:00 2023 +0000
+
+    commit
+
+commit 23dcd6138c9547afd7b29e8dd96c483dc7383cf9
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 13 02:23:28 2023 +0000
+
+    recommit
+
+commit 758c51c8fdfd0bb105fa1b7772998885c8f3c76e
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 13 02:08:39 2023 +0000
+
+    first jenkinsfile pipeline
+
+commit 700adfff4dca093d8e2c00eb35d43a4fbc83ce03
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sat Aug 12 02:39:15 2023 +0000
+
+    README adds and added an output to the compute.tf
+
+commit c324d0bd72b17b7a123808664830d77d9fa14e8b
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Fri Aug 11 19:45:54 2023 +0000
+
+    compute.tf: commented out null_resource from the compute.tf. We will no longer deploy granfana and prometheus from terraform compute.tf ansible playbook call. We will be using Jenkins for this
+
+commit e4d8cf857fe5470ff0e960630e5ad9e1ede47cff
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Fri Aug 11 02:55:22 2023 +0000
+
+    updated README
+
+commit 92f5ea6c307b7bde2bcf538f8cbe7b4a6dbdb72b
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Thu Aug 10 20:11:48 2023 +0000
+
+    corrected incorrect syntax on shared_credentials_file. It shojld be shared_credentials_files=[/home/ubuntu/.aws/credentials]
+
+commit dc3cda2febd3afa86a3863efefd43c0955be694a
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Thu Aug 10 05:19:45 2023 +0000
+
+    providers.tf comments
+
+commit 9b22d3312424abcf4223426b5526f226e968fe67
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Thu Aug 10 05:18:51 2023 +0000
+
+    providers.tf comments. The shared_credentials_file will publish the aws credentials to terraform and thus jenkins. note that jenkins is running locally on ubuntu Cloud9
+
+commit 1cd6994ebd9d4feda2d68ffabca35bb3dcd308dd
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Thu Aug 10 05:15:24 2023 +0000
+
+     do not run this branch from Cloud9 terminal. This is designed to run from Jenkins only
+
+commit 32a463489514ea0977aec0941eb78dbb18528e04
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Wed Aug 9 23:09:32 2023 +0000
+
+     updated providers.tf file with shared_credentials_file so taht terraform has access to this ephemeral data
+
+commit 6c0ddd20701e12b2a9d23a150ba7845923d8a129
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Wed Aug 9 22:41:41 2023 +0000
+
+    .gitignore additions
+
+commit b9a870d3abcda5aac1023c6e51ffcd50c6555a60
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Wed Aug 9 22:40:23 2023 +0000
+
+    .gitignore
+
+commit fe7fed216a452619eceab8257625a4b3570bf564
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Wed Aug 9 22:39:19 2023 +0000
+
+    updated .gitignore per course
+
+commit d696ec6ee218a58334406a044fcf2e1e8b803851
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Wed Aug 9 03:41:01 2023 +0000
+
+    update null_resource command to point to main-playbook.yml and test the entire setup to make sure it comes up with terraform apply
+
+commit 5f0e3e098b312da79c67b14c10cc6ef9a4cd0a65
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Wed Aug 9 01:35:45 2023 +0000
+
+     updated key for jenkins install https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key .  https://www.jenkins.io/blog/2023/03/27/repository-signing-keys-changing/
+
+commit 7ae7b923e07b5b7047febe331b348c2d9dcd86cc
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Wed Aug 9 00:53:49 2023 +0000
+
+    add jenkins-playbook.yml for local Cloud9 jenkins installation
+
+commit c1b17448e84ca1937834d6ae49c2aaa131a97e6c
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Wed Aug 9 00:12:33 2023 +0000
+
+    upload jenkins.txt to workspace. This will provide the steps for ansible playbook for the jenkins deployment onto the local Cloud9 host
+
+commit e778705ca2aac46c6297b57aca907bb5d62887a4
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 8 23:42:50 2023 +0000
+
+    move prometheus install txt file to the playbooks folder
+
+commit 576910a30a0d18136184735bca572f972800aaa7
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 8 01:36:08 2023 +0000
+
+    README master
+
+commit cecdb2b8624637d4d5851cdb90cc58b21b101dad
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 8 01:31:30 2023 +0000
+
+    README master file additions
+
+commit cbdf4d1a3bc29bbe7a037dfaeb8f2b10814a16d3
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 8 01:05:16 2023 +0000
+
+    README master
+
+commit 1a0622f665918f841e0649367c7fb8f465b8c44a
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 8 00:56:16 2023 +0000
+
+    README for master branch
+
+commit 012217b962521a55eb5597d22d9ce108f20d22f5
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 8 00:44:25 2023 +0000
+
+     added to master branch README
+
+commit ede3fbc3a3c110ad84b7821f4ee51cb776907d38
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 8 00:15:35 2023 +0000
+
+    missing a space after hyphen in targets commandgit add .
+
+commit 0a5d1289c55949b38e8f20ce892a9670002d44d7
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Mon Aug 7 23:52:00 2023 +0000
+
+    chmod 0775 instead of 0755 on /usr/local/bin binaries
+
+commit b56fcb46a40bd97021c6c0da789398cffc0c8408
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Mon Aug 7 23:26:40 2023 +0000
+
+    chmod 0775 instead of 0755 for the Create Prometheus Directories and Files with loop block in main-playbook.yml
+
+commit e34a1a87c9f007c7d7376ae61964407c74e861f7
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Mon Aug 7 22:32:48 2023 +0000
+
+    remove comments from prometheus.yml.j2 and prometheus.service.j2.  The first one is installed as a yml file not j2
+
+commit 0e9abc1b408ad0bf3984383c97e8cef6dc939769
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Mon Aug 7 22:08:20 2023 +0000
+
+     add teh systemctl start and enable block to ansibile main-playbook.yml to ensure that prometheus is enabled and started
+
+commit c72e95ed4f1462f0122d401a2a07986abbe391d4
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Mon Aug 7 22:01:01 2023 +0000
+
+    add mode: '0755' i.e. chmod 755 for the /usr/local/bin binaries so that we can start the service
+
+commit 9ac7661f6368fa6aa4b0a22bb0e50e73bcff8668
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Mon Aug 7 21:54:37 2023 +0000
+
+     added Create a systemd file block in main-playbook.yml ansible file, created prometheus.service.j2 file to be used in ansible.builtin.template block, used playbook variables listen_address and listen_port in prometheus.service.j2
+
+commit 1752cd2592cf9e7b2e64e2494fcbffa651269a50
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Mon Aug 7 21:07:11 2023 +0000
+
+    comment in prometheus.yml.j2
+
+commit e2e282bbd77df71a3fb6e306630d93650a9f416e
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Mon Aug 7 20:51:38 2023 +0000
+
+    added Create Config File /etc/prometheus/prometheus.yml block to main-playbook.yml, added listen_address and listen_port vars to playbook, and create the prometheus.yml.j2 config file that is to be src tempalte for dest /etc/prometheus/prometheus.yml
+
+commit 95935b7756f875a8b81a6ab52ae11a4c2bd75763
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Mon Aug 7 19:08:06 2023 +0000
+
+    add aws_hosts file to .gitignore
+
+commit 3bfaa66d54717a0043be15d718823b84fcf21986
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Mon Aug 7 02:38:51 2023 +0000
+
+    comments on trailing slash issue
+
+commit d6be234d5b014d9d8564772bc896d5bd508aa3c9
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Mon Aug 7 01:52:10 2023 +0000
+
+    trailing slash on the loop directories caused files in the consoles and console_libraries to be copied over. We need the directories themselves with all files in them copied over
+
+commit 97358381f2449a9dccdbce1e8e9c5345d4965a09
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Mon Aug 7 01:30:27 2023 +0000
+
+    added 2 blocks in main-playbook.yml, one for ansible.builtin.copy for prometheus and promtool to /usr/local/bin and second one for ansible.builtin.copy for consoles and console_libraries directories to /etc/prometheus.  Must set remote_src to yes on both. This is done on EC2 instance and not on cloud9.  Note source of all files and directories is /home/ubuntu/prometheus-2.30.3.linux-amd64
+
+commit 8e8c001f554a4c270e6ef85e5645937772a9648b
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Mon Aug 7 00:42:57 2023 +0000
+
+    fixed syntax error in configuration. Changed loop item from q {{ item }} q to q{{ item }}q where q is a double quotation mark
+
+commit 2e1fd28133a13894e6e0604e36994cd3e3fa987a
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Mon Aug 7 00:15:19 2023 +0000
+
+    add playbook ansible code for create 5 directories and files, and give proper permissions(chmod 755) and assign to proper user:group prometheus:promethous. This uses ansible.builtin.file loop to provision
+
+commit 93c2c273b70dd509a06e25b693efad6b1b3f5586
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 6 23:43:34 2023 +0000
+
+    more indentation issues
+
+commit 3e06db08196bdfd62ab213254e07077420eed49e
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 6 23:42:46 2023 +0000
+
+    indentation issues
+
+commit 3f79f6bb0ab678d08244c3e99caff4fa4e105345
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 6 23:40:38 2023 +0000
+
+    yaml indentation issues
+
+commit 37e4cb2f3315b5aae450d1146f2e46343f28e2cc
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 6 23:36:24 2023 +0000
+
+    add prometheus user and group blocks to main-playbook.yml ansible file
+
+commit 2a673cc5586f1e36533e21073efd9dfb67c5b1c6
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 6 23:13:21 2023 +0000
+
+    fix location to dest:
+
+commit f59329f5a415167c5b57e58ee876bffffc9b417a
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 6 23:11:33 2023 +0000
+
+    syntax config error in ansible.builtin.get_url. Location misspelled
+
+commit 7aa4f2109214afb7a6046767ceb4f45f0581aa57
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 6 22:54:35 2023 +0000
+
+    fill in the download tar ansible.builtin.get_url and fill in extraction ansible.builtin.unarchive.  Note we are extracting on the EC remote instance and not on Cloud9!
+
+commit 76eb5750112567b3beb567f443bdfd477946211e
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 6 22:09:57 2023 +0000
+
+    comments to main-playbook.yml
+
+commit fa4e77dd68ccf9f2a6bcdafcff8bcda4f20d6c03
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 6 22:08:00 2023 +0000
+
+     complete the scaffolding in main-playbook.yml for Prometheus. This has all the main - name: titles based on the PrometheusInstallNotes.txt
+
+commit b67f3b896e76ed9dd351ea91ca6ad4cb4b9d3c1b
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 6 21:49:34 2023 +0000
+
+    add PrometheusInstallNotes.txt and begin to scaffold the main-playbook.yml for Prometheus
+
+commit e6860f80c1ba0be043910433dae3b40e68688d15
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 6 21:39:44 2023 +0000
+
+    make a copy of granfana.yml and name it main-playbook.yml. This main-playbook.yml wll have both grafana and prometheus ansible bootsrap
+
+commit a2ff240a02023a75e5227c5a64ce574773c9af57
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 6 04:12:01 2023 +0000
+
+    added the output granfana access ip command to the end of the compute.tf so that the ip address is displayed after a terraform apply
+
+commit 2eb25ce0c3c8a3f636deeb9d559d7c88e240490b
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Aug 6 03:44:57 2023 +0000
+
+     for the error with ansible: ansible connector is trying ot ssh into the EC2 instance(s) before they are up.  We need to add aws ec2 wait instance-status-ok command to the local-exec provisioner in the aws_instance resource
+
+commit 7b1f7228bd68ce7ae5492ea4059dc7943de1a017
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sat Aug 5 22:49:06 2023 +0000
+
+    .gitignore update after adding ansible retries in /etc/ansibile/.ansible.cfg file
+
+commit 96aa34ae3c56588d78d4b6ec02cc4b20054377dd
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sat Aug 5 22:23:44 2023 +0000
+
+    finish ansible null_resource block. Add local-exec provisioner
+
+commit 49dc8b000eb14497d8501fd02e09d4b6424eba3e
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sat Aug 5 22:13:30 2023 +0000
+
+    added an ansible null_resource block at the end of the compute.tf file to run ansible playbook on each of the EC2 instances created (in aws_hosts file).  The ansibile-playbook is executed locally on Cloud9 and uses ssh to deploy the playbook (grafana) on the remote EC2 instance
+
+commit 04df7f1505e73664243ba2f3830589d1665a2731
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sat Aug 5 21:37:57 2023 +0000
+
+    fixed error in commenting out root_block_device. Need to keep this in compute.tf aws_instance block
+
+commit d08c18a554b5c21023b2323aa3cfe5ac41738638
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sat Aug 5 21:33:53 2023 +0000
+
+    comment out the remote provisioner block, the null_resource
+
+commit 9601e395ca4353d7e3b4bf0d5dbc9c1fd76ed05b
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sat Aug 5 21:25:37 2023 +0000
+
+    comment out the complete remote provisioner block, i.e. the null_resource
+
+commit f0cb0e1f52b727276276dc6f5143294139c345df
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sat Aug 5 21:09:30 2023 +0000
+
+    changed [servers] to [main] grouping in aws_hosts file; in grafana.yml changed hosts: hosts to hosts: main; in compute.tf commented out the user_data line as this will be replaced with ansible for grafana provisioning
+
+commit 253e6c386b983bb7f84816ecd91137a08053272e
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sat Aug 5 19:20:17 2023 +0000
+
+    added master README file
+
+commit ceb344ada2d6ef96432036e958207f2232ed7e73
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sat Aug 5 02:10:58 2023 +0000
+
+    added a grafana-destroy.yml file with relevant changes in the yaml syntax to do the effective destroy of the granfana.yml. NOTE: must first stop grafana-service BEFORE you can remove the installation. It will NOT get removed if the service is not explicitly stoppedgit add .
+
+commit fe9b37691f38205ed58cc27990191080ff2e136e
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Fri Aug 4 22:23:07 2023 +0000
+
+    added ansible.builtin.apt to update apt cache and install Grafana using ansible playbook.  Next use ansible.builtin.systemd to ensure granfana-service is started and that it is enabled (on bootup)
+
+commit 2727b2436569090b5e4afed975f83ad38d053665
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Fri Aug 4 21:44:13 2023 +0000
+
+    added ansible.builtin.apt_key task to download apt key and then added grafana repo to the sources.list with ansible.builtin.apt_repository
+
+commit ab0f73e5d8927acd42ee0f6df76bbb8307add629
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Fri Aug 4 20:47:56 2023 +0000
+
+    first draft of scaffolding for the granfana.yml ansible playbook
+
+commit d58c9ddceaba52ad75857d4e2f8c43f11ee8548d
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Thu Aug 3 22:41:14 2023 +0000
+
+     large commit of the null_resource for the remote-provisioner. This remote provisioner uses the cloud9 ssh credentials and public key on EC2 instances to SSH in and update grafana and update a log file as well. The null_resource has a connection block for the ssh and a provisioner block for the remote-provisioner. Make sure to run terraform init as null_resource is a new providergit add .
+
+commit fdfb231c23f7a242e58e6c4314f8b7390ca76dc3
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Thu Aug 3 20:37:13 2023 +0000
+
+    add variable var.cloud9_ip to the variables.tf and use this in aws_security_group_rule ingress (in networking.tf)  cidr_blocks to allow cloud9 ingress.
+
+commit f84d8acf70b65d1f6566a9fdbb31d0239f5d2322
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Thu Aug 3 06:01:56 2023 +0000
+
+    variables.tf some restructuring
+
+commit e983d49a71f17280d9a826dbd19f9919902c712a
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Thu Aug 3 03:03:18 2023 +0000
+
+    added user_data to compute.tf, added main-userdata.tpl to provision the Grafana on the EC2 instance, set new_hostname, configure local provisioner to get public ip address and pipe to aws_hosts file on Cloud9 for ssh usage, configure local-exec destroy provisioner to clean aws_hosts upon EC2 termination
+
+commit 33c46d6b64b992455c8958b568bcc391a2e771fa
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Wed Aug 2 02:08:17 2023 +0000
+
+    added aws_key_pair resource and key_name to aws_instance and added varibles.tf and terraform.tfvars to support this. This is for ssh keys added to EC instance. Our keys were generated locally on Cloud9 prior using ssh-keygen -t rsa
+
+commit 21d800235f64b0624827ba6dced6264ea8600500
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Wed Aug 2 00:51:35 2023 +0000
+
+    added multiple EC2 instance deployment with unique tag naming for the instances. Use random resource and count.index to assign to unique subnet
+
+commit 83cc57d18c687e70b389e7f1b3f77440f8d8e41b
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 1 21:56:59 2023 +0000
+
+    test
+
+commit 654ff13fb743b6c01f9c69f7615c6e075be3da5a
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 1 06:29:48 2023 +0000
+
+    added data aws_ami and resource aws_instance and deployed first EC2 instance on networking.tf.  This is our compute.tf first deployment
+
+commit 7f7252719d58309173893e34d8e833a2de21f02b
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 1 05:05:09 2023 +0000
+
+    first data object in the compute.tf file for querying the AWS API for the ami of the image we need for our EC2 deployment ubuntu 20.04 LTS latest
+
+commit 31939749db83636ce7c448cabe8064a087935f9a
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 1 02:44:51 2023 +0000
+
+    test
+
+commit 1ce2dd85a1a900e04b66144b072dacca66eae4be
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 1 02:23:19 2023 +0000
+
+    git ignore
+
+commit c8b651cb6fc454c5324651ee7d329385ddd3a2f7
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 1 02:22:34 2023 +0000
+
+    git ignore
+
+commit 103b6163dd7c8d407c4763377c3401f9db2c33d2
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 1 02:21:03 2023 +0000
+
+    git ignore test2
+
+commit c28ea76dcd02347ab147b482b4a01f9ac32211ae
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 1 01:13:54 2023 +0000
+
+    gitignore file
+
+commit 4daa4f05bad1a93f41eec2b42e4654c814c9c72a
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Tue Aug 1 01:12:01 2023 +0000
+
+    file cleanup for this project
+
+commit 0bec046304949723fc225675cb4d9a2429006a6a
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Mon Jul 31 22:44:10 2023 +0000
+
+    add security group and security group rules for public subnet instances, and add PC access ip variable for the ingress
+
+commit 68a6e43898f8c90e363e7041dc03bf3f57e2d259
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Mon Jul 31 21:27:18 2023 +0000
+
+    comments to main regarding private subnets and default route table (association)
+
+commit 0d28541b34b5df22152c94dfd51f7bed50eb1aa6
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Mon Jul 31 20:38:26 2023 +0000
+
+     comments
+
+commit 6a9e5a67184ccacfb1bf138def7d3443f5a06a18
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Mon Jul 31 20:31:46 2023 +0000
+
+    add aws_route_table_association resource for public subnets. Note we don't need for private subnets as they will use the default route table
+
+commit f7ad47ab2d32e34d2b5647d2fe70bfafaf7bfe47
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Mon Jul 31 05:31:11 2023 +0000
+
+     major revision in subnetting methodology. Use locals local.azs that has avail. zone count, count.index and cidrsubnet function to create non-overlapping private and public subnetting
+
+commit c33b5bd9ea5f7b9389b394b149eea903639c0361
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Jul 30 23:19:52 2023 +0000
+
+     cleanup on main.tf with locals on the availability_zone definition
+
+commit 2fa727a48161726777c0d5b5ffd80f289685153a
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Jul 30 22:30:05 2023 +0000
+
+    added private subnet, private cidr block and var.private-cidrs in variables.tf. 2 private cidr blocks 10.124.11.0/24 and 10.124.13.0/24
+
+commit 69f28a212faf7fd11bc8dd5b515c60cf574679a9
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Jul 30 21:27:05 2023 +0000
+
+    add length function for cidr_blocks for ease of scale deployments on the subnet provisioning
+
+commit 4f8a8cffa85eae87b1e2ef9fc7e58352ef0a8577
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Jul 30 21:16:23 2023 +0000
+
+    added count meta-argument for multiple subnets, indexed the cidr_block, the availability zone and the subnet name tag (+1), count of 2, and updated variables.tf accordingly
+
+commit 456cb7ec5c748b5935e7e266b8a00bf201552296
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Jul 30 03:17:06 2023 +0000
+
+    add the public_cidrs variable and the main subnet
+
+commit 7b269f0fb6f0b7fd358e2fe65c92814e404e48e6
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sun Jul 30 02:27:33 2023 +0000
+
+    added aws_default_route_table and aws_route_table and route_table
+
+commit e001cfba114fcbd1d6ecccb8a90898f48787be90
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sat Jul 29 23:40:50 2023 +0000
+
+    added igw to main.tf
+
+commit 700dcc694219cdb7c1c66c2e33f56c7dbcc36e0c
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Sat Jul 29 22:03:36 2023 +0000
+
+    prod.tfvars dev.tfvars main.tf providers.tf for terraform cloud and variables.tf
+
+commit 15cf5c5717a9334d93b2d75f95aa4ff9914b5764
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Fri Jul 28 23:12:03 2023 +0000
+
+    latest changes. Note added terraform cloud to track state as well
+
+commit 86ee9775596f3abb5bef75c9eb0ab1fe9c695ae2
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Fri Jul 28 19:00:30 2023 +0000
+
+    aws_vpc
+
+commit 117a02e61551647cb6a1ca92af906aaf6756bd3d
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Fri Jul 28 04:19:41 2023 +0000
+
+    test
+
+commit 323903246a8041bc557835881b681b89a890a1e0
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Fri Jul 28 03:53:08 2023 +0000
+
+    test
+
+commit 325b51416bc56678ebee462d9d706d4a475c057f
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Fri Jul 28 03:35:54 2023 +0000
+
+    test
+
+commit 2e0c15000cc8df287f63b7880255fc37310cff91
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Fri Jul 28 03:32:31 2023 +0000
+
+    .gitignore
+
+commit 988330cf56bf4f114599c3629a863223b5e4abaf
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Fri Jul 28 03:14:53 2023 +0000
+
+    test2
+
+commit 6852c5a86429b13ca4d20aa71c88e825200b586a
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Fri Jul 28 03:13:27 2023 +0000
+
+    test
+
+commit dd3af47f7fba8ada11f661b06030b680b6714788
+Author: Ubuntu <ubuntu@ip-172-31-26-107.us-west-1.compute.internal>
+Date:   Thu Jul 27 18:24:36 2023 +0000
+
+    inital commit of providers.tf
