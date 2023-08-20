@@ -68,7 +68,7 @@ variable "cloud9_ip" {
 
 variable "all_ips" {
   type = string
-  default = 0.0.0.0/0
+  default = "0.0.0.0/0"
   # this is an all source ip address for a temporary fix for the ansible.builtin.uri issue that requires source ip of public_ips of 
   # EC2 instances to be added to run the url to the appliations. Otherwise the traffic fails with failure code -1.
   # Ideally this needs to be locked down to just the public_ips of the EC2 instances.
