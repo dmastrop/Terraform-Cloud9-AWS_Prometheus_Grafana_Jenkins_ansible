@@ -107,7 +107,7 @@ printf "\n$(terraform output -json instance_ips | jq -r '.[]')" >> aws_hosts
 - JQ: The Jenkins pipeline converted shell command syntax is obtained from the Jenkins pipeline syntax converter tool and has been inserted into the Jenkinsfile
 in the EC2 wait stage.
 - prototype the ansible code for testing the apps with ansible playbook using ansible.builtin.uri.  Troubleshoot access list issues when initating the playbook
-from the Cloud9 IDE.
+from the Cloud9 IDE.  It requires source ip of public_ips to be added to the security group rules.  For now just use source 0.0.0.0/0
 - optimize the ansible code that is used for testing the apps with ansible.builtin.dict and use a loop as well.  The dictionary is defined in the vars:
 - incorporate this working ansible playbook clip into main-playbook.yml and test this out.
 
