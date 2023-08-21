@@ -113,6 +113,9 @@ from the Cloud9 IDE.  It requires source ip of public_ips to be added to the sec
 stage('Test Grafana and Prometheus http sockets 3000 and 9090') 
 ansiblePlaybook(credentialsId: 'EC2-SSH-key', inventory: 'aws_hosts', playbook: 'playbooks/node-test-optimize.yml')
 - merged Jenkins_development to master branch and created a gitcommits_merge.log file in the master branch.
+- Tested the production master branch and implemented a working setup with Prometheus EC2 node1 querying (scrape) on 
+EC2 node2 for node_load1 metric.  Configured grafana on EC2 node1 to configure dashboard of the data plot
+Loaded EC2 node2 with sudo apt install stress: sudo stress --cpu 8 --timeout 300
 
 
 
