@@ -244,7 +244,7 @@ pipeline {
   post {
   // https://www.jenkins.io/doc/pipeline/tour/post/
     success {
-      echo 'Success edit24'
+      echo 'Success edit25'
     }
     
     failure {
