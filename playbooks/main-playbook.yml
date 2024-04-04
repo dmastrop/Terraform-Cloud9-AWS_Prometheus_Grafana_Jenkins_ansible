@@ -32,8 +32,14 @@
     # we can use a url. See documentation above
       ansible.builtin.apt_key:
       # note the syntax here: ansible.builtin.apt_key   That is an underscore on the last apt_key
-        url: https://packages.grafana.com/gpg.key
+        #url: https://packages.grafana.com/gpg.key
+        # new link
+        url: https://apt.grafana.com/gpg-full.key
         state: present
+        
+        # mkdir -p /etc/apt/keyrings/
+        # wget -q -O - https://apt.grafana.com/gpg.key | gpg --dearmor > /etc/apt/keyrings/grafana.gpg
+        # echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main" | tee /etc/apt/sources.list.d/grafana.list
     
     
     - name: Add grafana repo to sources.list
