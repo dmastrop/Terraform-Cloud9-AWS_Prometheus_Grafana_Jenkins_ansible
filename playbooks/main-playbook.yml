@@ -51,16 +51,16 @@
     
    
     - name: Update apt cache and intall Grafana
-      sudo apt-get -y update &&
-      sudo apt-get -y install grafana &&
+      # sudo apt-get -y update &&
+      # sudo apt-get -y install grafana &&
     # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html
       #update_cache runs the equivalent of apt-get update before the operation. Can be run as part of the package installation or as a separate step
       # default is to not update the cache
       
-      # ansible.builtin.apt:
-      #   name: grafana
-      #   # this is the name of the application
-      #   update_cache: yes
+      ansible.builtin.apt:
+        name: grafana
+        # this is the name of the application
+        update_cache: yes
         
     
     
